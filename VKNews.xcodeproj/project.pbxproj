@@ -3,27 +3,33 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		33BDA40C290FD564002C4BFE /* VKSdkFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 33BDA40B290FD564002C4BFE /* VKSdkFramework.framework */; };
+		33BDA412290FD9A1002C4BFE /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33BDA411290FD9A1002C4BFE /* AuthService.swift */; };
+		33BDA418290FDEAD002C4BFE /* AuthViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 33BDA417290FDEAD002C4BFE /* AuthViewController.storyboard */; };
+		33BDA435290FFF74002C4BFE /* VKSdkFramework.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 33BDA434290FFF74002C4BFE /* VKSdkFramework.xcframework */; };
+		33BDA45429110355002C4BFE /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33BDA45329110355002C4BFE /* FeedViewController.swift */; };
+		33BDA4572911036B002C4BFE /* FeedViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 33BDA4562911036B002C4BFE /* FeedViewController.storyboard */; };
 		33E5A8302908068400B10265 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E5A82F2908068400B10265 /* AppDelegate.swift */; };
 		33E5A8322908068400B10265 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E5A8312908068400B10265 /* SceneDelegate.swift */; };
-		33E5A8342908068400B10265 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E5A8332908068400B10265 /* ViewController.swift */; };
-		33E5A8372908068400B10265 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 33E5A8352908068400B10265 /* Main.storyboard */; };
+		33E5A8342908068400B10265 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E5A8332908068400B10265 /* AuthViewController.swift */; };
 		33E5A8392908068700B10265 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 33E5A8382908068700B10265 /* Assets.xcassets */; };
 		33E5A83C2908068700B10265 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 33E5A83A2908068700B10265 /* LaunchScreen.storyboard */; };
 		33E5A84629080D3B00B10265 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 33E5A84529080D3B00B10265 /* .gitignore */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		33BDA40B290FD564002C4BFE /* VKSdkFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VKSdkFramework.framework; path = Carthage/Build/iOS/VKSdkFramework.framework; sourceTree = "<group>"; };
+		33BDA411290FD9A1002C4BFE /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		33BDA417290FDEAD002C4BFE /* AuthViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AuthViewController.storyboard; sourceTree = "<group>"; };
+		33BDA434290FFF74002C4BFE /* VKSdkFramework.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = VKSdkFramework.xcframework; path = Carthage/Build/VKSdkFramework.xcframework; sourceTree = "<group>"; };
+		33BDA45329110355002C4BFE /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
+		33BDA4562911036B002C4BFE /* FeedViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FeedViewController.storyboard; sourceTree = "<group>"; };
 		33E5A82C2908068400B10265 /* VKNews.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VKNews.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		33E5A82F2908068400B10265 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		33E5A8312908068400B10265 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		33E5A8332908068400B10265 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		33E5A8362908068400B10265 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		33E5A8332908068400B10265 /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		33E5A8382908068700B10265 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		33E5A83B2908068700B10265 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		33E5A83D2908068700B10265 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -35,7 +41,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				33BDA40C290FD564002C4BFE /* VKSdkFramework.framework in Frameworks */,
+				33BDA435290FFF74002C4BFE /* VKSdkFramework.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -45,9 +51,35 @@
 		33BDA3DC290AB013002C4BFE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				33BDA40B290FD564002C4BFE /* VKSdkFramework.framework */,
+				33BDA434290FFF74002C4BFE /* VKSdkFramework.xcframework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		33BDA414290FD9B2002C4BFE /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				33BDA411290FD9A1002C4BFE /* AuthService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		33BDA4592911040A002C4BFE /* FeedController */ = {
+			isa = PBXGroup;
+			children = (
+				33BDA45329110355002C4BFE /* FeedViewController.swift */,
+				33BDA4562911036B002C4BFE /* FeedViewController.storyboard */,
+			);
+			path = FeedController;
+			sourceTree = "<group>";
+		};
+		33BDA45B29110424002C4BFE /* AuthController */ = {
+			isa = PBXGroup;
+			children = (
+				33E5A8332908068400B10265 /* AuthViewController.swift */,
+				33BDA417290FDEAD002C4BFE /* AuthViewController.storyboard */,
+			);
+			path = AuthController;
 			sourceTree = "<group>";
 		};
 		33E5A8232908068400B10265 = {
@@ -72,8 +104,9 @@
 			children = (
 				33E5A82F2908068400B10265 /* AppDelegate.swift */,
 				33E5A8312908068400B10265 /* SceneDelegate.swift */,
-				33E5A8332908068400B10265 /* ViewController.swift */,
-				33E5A8352908068400B10265 /* Main.storyboard */,
+				33BDA414290FD9B2002C4BFE /* Services */,
+				33BDA45B29110424002C4BFE /* AuthController */,
+				33BDA4592911040A002C4BFE /* FeedController */,
 				33E5A8382908068700B10265 /* Assets.xcassets */,
 				33E5A83A2908068700B10265 /* LaunchScreen.storyboard */,
 				33E5A83D2908068700B10265 /* Info.plist */,
@@ -153,9 +186,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				33E5A84629080D3B00B10265 /* .gitignore in Resources */,
+				33BDA418290FDEAD002C4BFE /* AuthViewController.storyboard in Resources */,
 				33E5A83C2908068700B10265 /* LaunchScreen.storyboard in Resources */,
+				33BDA4572911036B002C4BFE /* FeedViewController.storyboard in Resources */,
 				33E5A8392908068700B10265 /* Assets.xcassets in Resources */,
-				33E5A8372908068400B10265 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -187,23 +221,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				33E5A8342908068400B10265 /* ViewController.swift in Sources */,
+				33E5A8342908068400B10265 /* AuthViewController.swift in Sources */,
 				33E5A8302908068400B10265 /* AppDelegate.swift in Sources */,
+				33BDA45429110355002C4BFE /* FeedViewController.swift in Sources */,
 				33E5A8322908068400B10265 /* SceneDelegate.swift in Sources */,
+				33BDA412290FD9A1002C4BFE /* AuthService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		33E5A8352908068400B10265 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				33E5A8362908068400B10265 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		33E5A83A2908068700B10265 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
