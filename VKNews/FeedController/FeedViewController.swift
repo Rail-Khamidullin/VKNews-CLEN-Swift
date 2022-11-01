@@ -11,7 +11,14 @@ import UIKit
 
 class FeedViewController: UIViewController {
     
+//    Достаём объект класса NetworkService
+    private let networkService = NetworkService()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        view.backgroundColor = .blue
+//        Вызовим метод getFeed
+        networkService.getFeed()
     }
 }

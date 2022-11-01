@@ -12,6 +12,8 @@
 		33BDA435290FFF74002C4BFE /* VKSdkFramework.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 33BDA434290FFF74002C4BFE /* VKSdkFramework.xcframework */; };
 		33BDA45429110355002C4BFE /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33BDA45329110355002C4BFE /* FeedViewController.swift */; };
 		33BDA4572911036B002C4BFE /* FeedViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 33BDA4562911036B002C4BFE /* FeedViewController.storyboard */; };
+		33BDA45E29111C89002C4BFE /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33BDA45D29111C89002C4BFE /* NetworkService.swift */; };
+		33BDA46129111E7A002C4BFE /* APi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33BDA46029111E7A002C4BFE /* APi.swift */; };
 		33E5A8302908068400B10265 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E5A82F2908068400B10265 /* AppDelegate.swift */; };
 		33E5A8322908068400B10265 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E5A8312908068400B10265 /* SceneDelegate.swift */; };
 		33E5A8342908068400B10265 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E5A8332908068400B10265 /* AuthViewController.swift */; };
@@ -26,6 +28,8 @@
 		33BDA434290FFF74002C4BFE /* VKSdkFramework.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = VKSdkFramework.xcframework; path = Carthage/Build/VKSdkFramework.xcframework; sourceTree = "<group>"; };
 		33BDA45329110355002C4BFE /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		33BDA4562911036B002C4BFE /* FeedViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FeedViewController.storyboard; sourceTree = "<group>"; };
+		33BDA45D29111C89002C4BFE /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		33BDA46029111E7A002C4BFE /* APi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APi.swift; sourceTree = "<group>"; };
 		33E5A82C2908068400B10265 /* VKNews.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VKNews.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		33E5A82F2908068400B10265 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		33E5A8312908068400B10265 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -60,6 +64,8 @@
 			isa = PBXGroup;
 			children = (
 				33BDA411290FD9A1002C4BFE /* AuthService.swift */,
+				33BDA45D29111C89002C4BFE /* NetworkService.swift */,
+				33BDA46029111E7A002C4BFE /* APi.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -225,6 +231,8 @@
 				33E5A8302908068400B10265 /* AppDelegate.swift in Sources */,
 				33BDA45429110355002C4BFE /* FeedViewController.swift in Sources */,
 				33E5A8322908068400B10265 /* SceneDelegate.swift in Sources */,
+				33BDA45E29111C89002C4BFE /* NetworkService.swift in Sources */,
+				33BDA46129111E7A002C4BFE /* APi.swift in Sources */,
 				33BDA412290FD9A1002C4BFE /* AuthService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

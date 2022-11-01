@@ -25,6 +25,10 @@ class AuthService: NSObject, VKSdkDelegate, VKSdkUIDelegate {
     private let vkSdk: VKSdk
     //    Доступ к протоколу через weak для ослабления ссылки
     weak var delegate: AuthServiceDelegate?
+    //    Достаём индивидуальный токен
+    var token: String? {
+        return VKSdk.accessToken()?.accessToken
+    }
     
     override init() {
         vkSdk = VKSdk.initialize(withAppId: appId)
@@ -55,7 +59,7 @@ class AuthService: NSObject, VKSdkDelegate, VKSdkUIDelegate {
     //    Успешная авторизация
     func vkSdkAccessAuthorizationFinished(with result: VKAuthorizationResult!) {
         
-        if result.token != nil {
+        if result.token != nil { 
             //        Смотрим, когда вызывается функция
             delegate?.authServiceSingIn()
         }

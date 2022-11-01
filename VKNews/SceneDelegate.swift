@@ -88,9 +88,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, AuthServiceDelegate {
     func authServiceSingIn() {
         print(#function)
         //        Если удаётся достать сториборд для FeedViewController
-        let feedVC = UIStoryboard(name: "FeedViewController", bundle: nil).instantiateInitialViewController() as! FeedViewController
+        let feedVC = UIStoryboard(name: "FeedViewController", bundle: nil).instantiateInitialViewController() as? FeedViewController
         //        То достаём window предварительно через navigationController
-        let navController = UINavigationController(rootViewController: feedVC)
+        let navController = UINavigationController(rootViewController: feedVC!)
         window?.rootViewController = navController
     }
     
