@@ -8,8 +8,13 @@
 
 import Foundation
 
+//   Получение данных из интернета
+protocol Networking {
+    func request(path: String, params: [String : String], completion: @escaping (Data?, Error?) ->())
+}
 
-final class NetworkService {
+final class NetworkService: Networking {
+    
     
     //    Создаём объёкт типа AuthService
     private let authService: AuthService
@@ -18,21 +23,36 @@ final class NetworkService {
         self.authService = authService
     }
     
-//    Создание web адреса с помощью URLComponents
-    func getFeed() {
-        
-        var components = URLComponents()
-        // https://api.vk.com/method/users.get?user_ids=210700286&fields=bdate&access_token=533bacf01e11f55b536a565b57531ac114461ae8736d6506a3&v=5.131
+    //    Метод будет получать данные
+    func request(path: String, params: [String : String], completion: @escaping (Data?, Error?) -> ()) {
         
         //        Проверяем наличие token
         guard let token = authService.token else { return }
         
-        //        Создаём параметры api для get запроса
-        let params = ["filters" : "post, photo"]
         var allParams = params
         allParams["access_token"] = token
         allParams["v"] = APi.version
+        let url = self.url(from: path, params: allParams)
+        //        Создаём заспрос
+        let request = URLRequest(url: url)
+        //        Создаём задачу и передаём далее
+        let task = createDataTask(from: request, completion: completion)
+        task.resume()
+    }
+    
+    //    Отдельно вынесем логику получения данных
+    private func createDataTask(from request: URLRequest, completion: @escaping (Data?, Error?) -> ()) -> URLSessionDataTask {
+        //        Асинхронно в главной очереди
+        return URLSession.shared.dataTask(with: request) { (data, response, error) in
+            DispatchQueue.main.async {
+                completion(data, error)
+            }
+        }
+    }
+    
+    private func url(from path: String, params: [String : String]) -> URL {
         
+        var components = URLComponents()
         //        это протокол http или https
         components.scheme = APi.sheme
         //        название сайта с которого запрашиваем запрос (api.vk.com)
@@ -40,9 +60,8 @@ final class NetworkService {
         //        будет определять к какому методу обращаться (method/users.get)
         components.path = APi.newsFeed
         //        параметры, которые будут зависеть от api
-        components.queryItems = allParams.map { URLQueryItem(name: $0, value: $1) }
+        components.queryItems = params.map { URLQueryItem(name: $0, value: $1) }
         
-        let url = components.url!
-        print(url)
+        return components.url!
     }
 }
