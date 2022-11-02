@@ -14,6 +14,8 @@
 		33BDA4572911036B002C4BFE /* FeedViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 33BDA4562911036B002C4BFE /* FeedViewController.storyboard */; };
 		33BDA45E29111C89002C4BFE /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33BDA45D29111C89002C4BFE /* NetworkService.swift */; };
 		33BDA46129111E7A002C4BFE /* APi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33BDA46029111E7A002C4BFE /* APi.swift */; };
+		33BDA46D291295E9002C4BFE /* FeedResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33BDA46C291295E9002C4BFE /* FeedResponse.swift */; };
+		33BDA4712912A3B0002C4BFE /* NetworkDataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33BDA4702912A3B0002C4BFE /* NetworkDataFetcher.swift */; };
 		33E5A8302908068400B10265 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E5A82F2908068400B10265 /* AppDelegate.swift */; };
 		33E5A8322908068400B10265 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E5A8312908068400B10265 /* SceneDelegate.swift */; };
 		33E5A8342908068400B10265 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E5A8332908068400B10265 /* AuthViewController.swift */; };
@@ -30,6 +32,8 @@
 		33BDA4562911036B002C4BFE /* FeedViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FeedViewController.storyboard; sourceTree = "<group>"; };
 		33BDA45D29111C89002C4BFE /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		33BDA46029111E7A002C4BFE /* APi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APi.swift; sourceTree = "<group>"; };
+		33BDA46C291295E9002C4BFE /* FeedResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedResponse.swift; sourceTree = "<group>"; };
+		33BDA4702912A3B0002C4BFE /* NetworkDataFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkDataFetcher.swift; sourceTree = "<group>"; };
 		33E5A82C2908068400B10265 /* VKNews.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VKNews.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		33E5A82F2908068400B10265 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		33E5A8312908068400B10265 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -63,8 +67,10 @@
 		33BDA414290FD9B2002C4BFE /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				33BDA46B291295CF002C4BFE /* Models */,
 				33BDA411290FD9A1002C4BFE /* AuthService.swift */,
 				33BDA45D29111C89002C4BFE /* NetworkService.swift */,
+				33BDA4702912A3B0002C4BFE /* NetworkDataFetcher.swift */,
 				33BDA46029111E7A002C4BFE /* APi.swift */,
 			);
 			path = Services;
@@ -86,6 +92,14 @@
 				33BDA417290FDEAD002C4BFE /* AuthViewController.storyboard */,
 			);
 			path = AuthController;
+			sourceTree = "<group>";
+		};
+		33BDA46B291295CF002C4BFE /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				33BDA46C291295E9002C4BFE /* FeedResponse.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		33E5A8232908068400B10265 = {
@@ -227,11 +241,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				33BDA46D291295E9002C4BFE /* FeedResponse.swift in Sources */,
 				33E5A8342908068400B10265 /* AuthViewController.swift in Sources */,
 				33E5A8302908068400B10265 /* AppDelegate.swift in Sources */,
 				33BDA45429110355002C4BFE /* FeedViewController.swift in Sources */,
 				33E5A8322908068400B10265 /* SceneDelegate.swift in Sources */,
 				33BDA45E29111C89002C4BFE /* NetworkService.swift in Sources */,
+				33BDA4712912A3B0002C4BFE /* NetworkDataFetcher.swift in Sources */,
 				33BDA46129111E7A002C4BFE /* APi.swift in Sources */,
 				33BDA412290FD9A1002C4BFE /* AuthService.swift in Sources */,
 			);

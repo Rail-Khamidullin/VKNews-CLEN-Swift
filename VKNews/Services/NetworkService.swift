@@ -13,12 +13,12 @@ protocol Networking {
     func request(path: String, params: [String : String], completion: @escaping (Data?, Error?) ->())
 }
 
+//   Класс сетевого сервиса
 final class NetworkService: Networking {
-    
     
     //    Создаём объёкт типа AuthService
     private let authService: AuthService
-    
+    //    Инициализируем наш объект с синглтоном SceneDelegate
     init(authService: AuthService = SceneDelegate.shared().authService) {
         self.authService = authService
     }
@@ -28,11 +28,16 @@ final class NetworkService: Networking {
         
         //        Проверяем наличие token
         guard let token = authService.token else { return }
-        
+        //        Создаём параметры нашего url адреса
         var allParams = params
+        //        Добавим токен
         allParams["access_token"] = token
+        //        Добавим версию ВК
         allParams["v"] = APi.version
+        //        Получаем окончательный url адрес
         let url = self.url(from: path, params: allParams)
+        
+        print(url)
         //        Создаём заспрос
         let request = URLRequest(url: url)
         //        Создаём задачу и передаём далее
@@ -50,6 +55,7 @@ final class NetworkService: Networking {
         }
     }
     
+    //    Соединяем все составляющие url в единый адрес
     private func url(from path: String, params: [String : String]) -> URL {
         
         var components = URLComponents()
@@ -61,7 +67,7 @@ final class NetworkService: Networking {
         components.path = APi.newsFeed
         //        параметры, которые будут зависеть от api
         components.queryItems = params.map { URLQueryItem(name: $0, value: $1) }
-        
+        //        Вернём готовый адрес
         return components.url!
     }
 }

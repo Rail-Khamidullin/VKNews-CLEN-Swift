@@ -37,10 +37,11 @@ class AuthService: NSObject, VKSdkDelegate, VKSdkUIDelegate {
         vkSdk.register(self)
         vkSdk.uiDelegate = self
     }
+    
     //    Проверяем доступность предыдущей сессии
     func wakeUpSession() {
         //        Создаём массив с возможными действиями
-        let scope = ["offline"]
+        let scope = ["offline, wall, friends"]
         
         VKSdk.wakeUpSession(scope) { [delegate] (state, error) in
             switch state {

@@ -21,6 +21,7 @@
                                 <color key="backgroundColor" systemColor="systemGroupedBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="160" id="3mX-sP-7kD"/>
+                                    <constraint firstAttribute="height" constant="41" id="Ej3-CR-mPk"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
                                 <state key="normal" title="Войти в VK"/>
@@ -32,7 +33,6 @@
                         <viewLayoutGuide key="safeArea" id="y4Y-JD-wgD"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="fvA-jq-UB4" firstAttribute="height" secondItem="l6O-Sq-X1h" secondAttribute="height" multiplier="0.0457589" id="1FM-wm-euf"/>
                             <constraint firstItem="fvA-jq-UB4" firstAttribute="centerX" secondItem="l6O-Sq-X1h" secondAttribute="centerX" id="SDL-kT-0gQ"/>
                             <constraint firstItem="fvA-jq-UB4" firstAttribute="centerY" secondItem="l6O-Sq-X1h" secondAttribute="centerY" id="pvc-X8-7Px"/>
                         </constraints>

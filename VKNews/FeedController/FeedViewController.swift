@@ -8,17 +8,25 @@
 
 import UIKit
 
-
+//   Контроллер с отображением новостей
 class FeedViewController: UIViewController {
     
-//    Достаём объект класса NetworkService
-    private let networkService = NetworkService()
+    //    Установим внешнюю зависимость, таким образом класс будет зависеть от Абстракции (protocol)
+    private let networkDataFetcher: DataFetcher = NetworkDataFetcher(networking: NetworkService())
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .blue
-//        Вызовим метод getFeed
-        networkService.getFeed()
+        view.backgroundColor = .systemBlue
+        
+        //        Обращаемся к методу с декодироваинем данных, проверяем правильность работы
+        networkDataFetcher.getFeed { (feedResponse) in
+            
+            guard let feedResponse = feedResponse else { return }
+            
+            feedResponse.items.map { (feedItem) in
+                print(feedItem.views)
+            }
+        }
     }
 }

@@ -11,7 +11,7 @@ class AuthViewController: UIViewController {
     
     //    Кнопка входа в веб сервис авторизации ВК
     @IBOutlet weak var signInButton: UIButton!
-    //    Достаём AuthService
+    //    Достаём объект AuthService
     var authService: AuthService!
     
     override func viewDidLoad() {
@@ -19,19 +19,20 @@ class AuthViewController: UIViewController {
         
         //        Имеем доступ к SceneDelegate глобально
         authService = SceneDelegate.shared().authService
-        view.backgroundColor = .red
+        view.backgroundColor = .white
         prepareSignInButton()
     }
     
+    //    Действия при нажатии на кнопку авторизации
     @IBAction func signInTouchButton(_ sender: UIButton) {
         //       Вызываем метод с проверкой доступности предыдущей сессии
         authService.wakeUpSession()
     }
     //    Настройка отображения кнопки
     private func prepareSignInButton() {
-        signInButton.layer.borderWidth = 2
+        signInButton.layer.borderWidth = 1
         signInButton.layer.borderColor = UIColor.blue.cgColor
-        signInButton.layer.cornerRadius = 5
+        signInButton.layer.cornerRadius = 7
     }
 }
 
