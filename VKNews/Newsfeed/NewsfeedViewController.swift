@@ -16,18 +16,9 @@ class NewsfeedViewController: UIViewController, NewsfeedDisplayLogic {
 
   var interactor: NewsfeedBusinessLogic?
   var router: (NSObjectProtocol & NewsfeedRoutingLogic)?
-
-  // MARK: Object lifecycle
-  
-  override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-    super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-    setup()
-  }
-  
-  required init?(coder aDecoder: NSCoder) {
-    super.init(coder: aDecoder)
-    setup()
-  }
+//    Наша таблица
+    @IBOutlet weak var tableView: UITableView!
+    
   
   // MARK: Setup
   
@@ -51,10 +42,51 @@ class NewsfeedViewController: UIViewController, NewsfeedDisplayLogic {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-  }
-  
-  func displayData(viewModel: Newsfeed.Model.ViewModel.ViewModelData) {
+    setup()
 
+//    Регистрируем нашу ячейку NewsfeedCell
+    self.tableView.register(UINib(nibName: "NewsfeedCell", bundle: nil), forCellReuseIdentifier: NewsfeedCell.reuseId)
+  }
+    
+//  С помощью полученных и обработанных данных displayData в носит изменения в пользовательский интерфейс
+  func displayData(viewModel: Newsfeed.Model.ViewModel.ViewModelData) {
+    switch viewModel {
+    
+    case .some:
+        print(". some ViewController")
+    case .displayNewsfeed:
+        print(". displayNewsfeed ViewController")
+    }
   }
   
+}
+
+extension NewsfeedViewController: UITableViewDelegate, UITableViewDataSource {
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 5
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
+//        Создаём ячейку
+        let cell = tableView.dequeueReusableCell(withIdentifier: NewsfeedCell.reuseId, for: indexPath) as! NewsfeedCell
+//        Выводим текст ячейки
+        cell.textLabel?.text = "indexPath: \(indexPath.row)"
+
+        return cell
+    }
+    
+//    Метод, который ловит нажатие на ячейку
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        print("select row: \(indexPath.row)")
+//        Хотим получить новостные данные и отправляемся в интеректор
+        interactor?.makeRequest(request: .getFeed)
+    }
+
+//    Устанавливаем высоту ячейки
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 212
+    }
 }

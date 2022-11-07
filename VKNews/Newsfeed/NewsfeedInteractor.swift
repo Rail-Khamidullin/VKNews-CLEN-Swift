@@ -21,6 +21,17 @@ class NewsfeedInteractor: NewsfeedBusinessLogic {
     if service == nil {
       service = NewsfeedService()
     }
+    
+    switch request {
+    
+    case .some:
+        print(". some Interactor")
+//       Мы попадаем в метод getFeed (здесь мы будем делать сетевой запрос)
+    case .getFeed:
+        print(". getFeed Interactor")
+//        Данные которые мы получим будем передавать в метод ниже 
+        presenter?.presentData(response: .presentNewsfeed )
+    }
   }
   
 }
