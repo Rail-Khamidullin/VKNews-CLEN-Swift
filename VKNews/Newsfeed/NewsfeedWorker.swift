@@ -8,6 +8,7 @@
 
 import UIKit
 
+//   Класс для запроса данных
 class NewsfeedService {
 
 }

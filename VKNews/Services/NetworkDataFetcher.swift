@@ -13,6 +13,7 @@ protocol DataFetcher {
     func getFeed(response: @escaping (FeedResponse?) -> ())
 }
 
+//   Отвечает за сетевые запросы
 struct NetworkDataFetcher: DataFetcher {
     
     //    Установим внешнюю зависимость, таким образом класс будет зависеть от Абстракции (protocol)

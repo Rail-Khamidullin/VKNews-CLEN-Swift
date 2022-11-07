@@ -38,7 +38,7 @@ final class NetworkService: Networking {
         let url = self.url(from: path, params: allParams)
         
         print(url)
-        //        Создаём заспрос
+        //        Создаём запрос
         let request = URLRequest(url: url)
         //        Создаём задачу и передаём далее
         let task = createDataTask(from: request, completion: completion)

@@ -8,27 +8,52 @@
 
 import UIKit
 
+//   Наша модель новостной ленты
 enum Newsfeed {
-   
-  enum Model {
-    struct Request {
-      enum RequestType {
-        case some
-        case getFeed
-      }
+    
+    enum Model {
+        struct Request {
+            enum RequestType {
+                //        Получение новостных данных
+                case getNewsFeed
+            }
+        }
+        struct Response {
+            enum ResponseType {
+                //        Кейс с ассоциативным значением FeedResponse
+                case presentNewsfeed(feed: FeedResponse)
+            }
+        }
+        struct ViewModel {
+            enum ViewModelData {
+                //        Кейс с ассоциативным значением FeedViewModel
+                case displayNewsfeed(feedViewModel: FeedViewModel)
+            }
+        }
     }
-    struct Response {
-      enum ResponseType {
-        case some
-        case presentNewsfeed
-      }
+}
+
+//   Создаём структуру нашей модели данных, которая будет принимать данные из сети
+struct FeedViewModel {
+    //    Подписываем под протокол и реализуем его св-ва
+    struct Cell: FeedCellViewModel {
+        //        Иконка url страницы откуда пришёл пост
+        var iconUrlString: String
+        //        Имя поста
+        var name: String
+        //        Дата размещения поста
+        var date: String
+        //        Текст или изображение поста
+        var text: String?
+        //        Кол-во лайков
+        var likes: String?
+        //        Кол-во комментарий
+        var comments: String?
+        //        Кол-во репостов
+        var shares: String?
+        //        Кол-во просмотров
+        var views: String?
     }
-    struct ViewModel {
-      enum ViewModelData {
-        case some
-        case displayNewsfeed
-      }
-    }
-  }
-  
+    //    В новостной ленте присутствует массив ячеек
+    let cells: [Cell]
 }

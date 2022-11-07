@@ -9,6 +9,20 @@
 import Foundation
 import UIKit
 
+//   Создаём протокол, который будет иметь (читабельные) св-ва
+protocol FeedCellViewModel {
+    
+    var iconUrlString: String { get }
+    var name: String { get }
+    var date: String { get }
+    var text: String? { get }
+    var likes: String? { get }
+    var comments: String? { get }
+    var shares: String? { get }
+    var views: String? { get }
+}
+
+//   Наша ячейка в таблице
 class NewsfeedCell: UITableViewCell {
     
     @IBOutlet weak var iconImageView: UIImageView!
@@ -25,6 +39,17 @@ class NewsfeedCell: UITableViewCell {
     
     override class func awakeFromNib() {
         super.awakeFromNib()
+    }
+    
+//    Передаём нашим элементам данные
+    func set(viewModel: FeedCellViewModel) {
+        namelabel.text = viewModel.name
+        dateLabel.text = viewModel.date
+        postLabel.text = viewModel.text
+        likesLabel.text = viewModel.likes
+        commentsLabel.text = viewModel.comments
+        sharesLabel.text = viewModel.shares
+        viewsLabel.text = viewModel.views
     }
 }
 

@@ -9,83 +9,89 @@
 import UIKit
 
 protocol NewsfeedDisplayLogic: class {
-  func displayData(viewModel: Newsfeed.Model.ViewModel.ViewModelData)
+    func displayData(viewModel: Newsfeed.Model.ViewModel.ViewModelData)
 }
 
 class NewsfeedViewController: UIViewController, NewsfeedDisplayLogic {
-
-  var interactor: NewsfeedBusinessLogic?
-  var router: (NSObjectProtocol & NewsfeedRoutingLogic)?
-//    Наша таблица
+    
+    var interactor: NewsfeedBusinessLogic?
+    var router: (NSObjectProtocol & NewsfeedRoutingLogic)?
+    //    Создаём модель данных новостной ленты  FeedViewModel, которая содержит посты нашего массива
+    private var feedViewModel = FeedViewModel.init(cells: [])
+    //    Наша таблица
     @IBOutlet weak var tableView: UITableView!
     
-  
-  // MARK: Setup
-  
-  private func setup() {
-    let viewController        = self
-    let interactor            = NewsfeedInteractor()
-    let presenter             = NewsfeedPresenter()
-    let router                = NewsfeedRouter()
-    viewController.interactor = interactor
-    viewController.router     = router
-    interactor.presenter      = presenter
-    presenter.viewController  = viewController
-    router.viewController     = viewController
-  }
-  
-  // MARK: Routing
-  
-
-  
-  // MARK: View lifecycle
-  
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    setup()
-
-//    Регистрируем нашу ячейку NewsfeedCell
-    self.tableView.register(UINib(nibName: "NewsfeedCell", bundle: nil), forCellReuseIdentifier: NewsfeedCell.reuseId)
-  }
     
-//  С помощью полученных и обработанных данных displayData в носит изменения в пользовательский интерфейс
-  func displayData(viewModel: Newsfeed.Model.ViewModel.ViewModelData) {
-    switch viewModel {
+    // MARK: Setup
     
-    case .some:
-        print(". some ViewController")
-    case .displayNewsfeed:
-        print(". displayNewsfeed ViewController")
+    private func setup() {
+        let viewController        = self
+        let interactor            = NewsfeedInteractor()
+        let presenter             = NewsfeedPresenter()
+        let router                = NewsfeedRouter()
+        viewController.interactor = interactor
+        viewController.router     = router
+        interactor.presenter      = presenter
+        presenter.viewController  = viewController
+        router.viewController     = viewController
     }
-  }
-  
+    
+    // MARK: Routing
+    
+    
+    
+    // MARK: View lifecycle
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setup()
+        
+        //    Регистрируем нашу ячейку NewsfeedCell
+        self.tableView.register(UINib(nibName: "NewsfeedCell", bundle: nil), forCellReuseIdentifier: NewsfeedCell.reuseId)
+        //    Отправляем запрос на получение данных для отображеия в новостной ленте (отправляемся в интеректор)
+        interactor?.makeRequest(request: .getNewsFeed)
+    }
+    
+    //  С помощью полученных и обработанных данных displayData в носит изменения в пользовательский интерфейс
+    func displayData(viewModel: Newsfeed.Model.ViewModel.ViewModelData) {
+        switch viewModel {
+        
+        case .displayNewsfeed(feedViewModel: let feedViewModel):
+            //            Заполняем нашу структуру FeedViewModel полученным сконвертированными данными из presenter
+            self.feedViewModel = feedViewModel
+            //            Обновляем нашу таблицу
+            tableView.reloadData()
+        }
+    }
 }
 
 extension NewsfeedViewController: UITableViewDelegate, UITableViewDataSource {
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return feedViewModel.cells.count
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
-//        Создаём ячейку
+        
+        //        Создаём ячейку
         let cell = tableView.dequeueReusableCell(withIdentifier: NewsfeedCell.reuseId, for: indexPath) as! NewsfeedCell
-//        Выводим текст ячейки
-        cell.textLabel?.text = "indexPath: \(indexPath.row)"
-
+        
+        //        Достаём ячейку с массивом данных
+        let cellViewModel = feedViewModel.cells[indexPath.row]
+        //        Передаём в наши объекты данные для отображения
+        cell.set(viewModel: cellViewModel)
         return cell
     }
     
-//    Метод, который ловит нажатие на ячейку
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        print("select row: \(indexPath.row)")
-//        Хотим получить новостные данные и отправляемся в интеректор
-        interactor?.makeRequest(request: .getFeed)
-    }
-
-//    Устанавливаем высоту ячейки
+    //    Метод, который ловит нажатие на ячейку
+    //    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    //
+    //        print("select row: \(indexPath.row)")
+    ////        Хотим получить новостные данные и отправляемся в интеректор
+    //        interactor?.makeRequest(request: .getFeed)
+    //    }
+    
+    //    Устанавливаем высоту ячейки
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 212
     }
