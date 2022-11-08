@@ -25,7 +25,7 @@ protocol FeedCellViewModel {
 //   Наша ячейка в таблице
 class NewsfeedCell: UITableViewCell {
     
-    @IBOutlet weak var iconImageView: UIImageView!
+    @IBOutlet weak var iconImageView: WebImageView!
     @IBOutlet weak var namelabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
 //    Будет содержать в себе текст
@@ -43,6 +43,7 @@ class NewsfeedCell: UITableViewCell {
     
 //    Передаём нашим элементам данные
     func set(viewModel: FeedCellViewModel) {
+        iconImageView.set(imageUrl: viewModel.iconUrlString)
         namelabel.text = viewModel.name
         dateLabel.text = viewModel.date
         postLabel.text = viewModel.text
