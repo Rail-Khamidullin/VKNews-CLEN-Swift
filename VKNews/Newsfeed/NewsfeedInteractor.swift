@@ -31,14 +31,6 @@ class NewsfeedInteractor: NewsfeedBusinessLogic {
         case .getNewsFeed:
             dataFetcher.getFeed { [weak self] (feedResponse) in
                 
-                feedResponse?.groups .map({ (profile) in
-                    print("\(profile) \n\n")
-                })
-                
-                feedResponse?.items.map({ (feedItem) in
-                    print(feedItem.sourceId)
-                })
-                
                 //                Проверяем на наличие данных
                 guard let feedResponse = feedResponse else { return }
                 //                Передаём полученны данные в презентер

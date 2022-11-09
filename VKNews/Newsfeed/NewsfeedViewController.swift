@@ -21,7 +21,6 @@ class NewsfeedViewController: UIViewController, NewsfeedDisplayLogic {
     //    Наша таблица
     @IBOutlet weak var tableView: UITableView!
     
-    
     // MARK: Setup
     
     private func setup() {
@@ -38,21 +37,25 @@ class NewsfeedViewController: UIViewController, NewsfeedDisplayLogic {
     
     // MARK: Routing
     
-    
-    
     // MARK: View lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
+        //        Убираем разделитель между ячейками
+        tableView.separatorStyle = .none
+        //        Убираем заливку таблицы
+        tableView.backgroundColor = .clear
+        //        Меняем цвет родительского view
+        view.backgroundColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
         
         //    Регистрируем нашу ячейку NewsfeedCell
-        self.tableView.register(UINib(nibName: "NewsfeedCell", bundle: nil), forCellReuseIdentifier: NewsfeedCell.reuseId)
-        //    Отправляем запрос на получение данных для отображеия в новостной ленте (отправляемся в интеректор)
+        tableView.register(UINib(nibName: "NewsfeedCell", bundle: nil), forCellReuseIdentifier: NewsfeedCell.reuseId)
+        //    Отправляем запрос на получение данных для отображеия в новостной ленте (отправляемся в интерактор)
         interactor?.makeRequest(request: .getNewsFeed)
     }
     
-    //  С помощью полученных и обработанных данных displayData в носит изменения в пользовательский интерфейс
+    //  С помощью полученных и обработанных данных displayData вносит изменения в пользовательский интерфейс
     func displayData(viewModel: Newsfeed.Model.ViewModel.ViewModelData) {
         switch viewModel {
         

@@ -41,12 +41,61 @@ struct FeedItem: Decodable {
     let reposts: CountableItem?
     //    Кол-во просмотров
     let views: CountableItem?
+    //    Записи со стен
+    let attachments: [Attachment]?
 }
 
 //   Кол-во элементов
 struct CountableItem: Decodable {
     //    Кол-во
     let count: Int
+}
+
+//   Фото записи со стены
+struct Attachment: Decodable {
+    let photo: Photo?
+}
+
+//   Структура фото получаемого от сервера
+struct Photo: Decodable {
+    //    Массив с изображениями различных размеров
+    let sizes: [PhotoSize]
+    //    Высота изображения из массива
+    var height: Int {
+        return getPropperSize().height
+    }
+    //    Ширина изображения из массива
+    var width: Int {
+        return getPropperSize().width
+    }
+    //    URL адрес изображения из массива
+    var srcBIG: String {
+        return getPropperSize().url
+    }
+    
+    //    Получаем необходимый нам размер изображения из массива
+    private func getPropperSize() -> PhotoSize {
+        //        Пробегаемся по массиву и находим первое изображение с типом "x"
+        if let sizeX = sizes.first(where: {$0.type == "x"}) {
+            return sizeX
+        } else if let fallBackSize = sizes.last {
+            return fallBackSize
+        } else {
+            return PhotoSize(type: "Wrong image", url: "Wrong image", width: 0, height: 0)
+        }
+    }
+}
+
+//   Структура размерности изображения
+struct PhotoSize: Decodable {
+    //    Тип
+    let type: String
+    //    Адрес
+    let url: String
+    //    Ширина
+    let width: Int
+    //    Высота
+    let height: Int
 }
 
 //   Создаём протокол, где прописываем св-ва

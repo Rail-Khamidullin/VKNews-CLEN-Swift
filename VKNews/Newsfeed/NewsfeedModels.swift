@@ -53,7 +53,19 @@ struct FeedViewModel {
         var shares: String?
         //        Кол-во просмотров
         var views: String?
+        //        Изображение поста
+        var photoAttachment: FeedCellPhotoAttachmentViewModel?
     }
+    
+    struct FeedCellPhotoAttachment: FeedCellPhotoAttachmentViewModel {
+        //        URL адрес фото
+        var photoUrlString: String?
+        //        Ширина
+        var width: Int
+        //        Высота
+        var height: Int
+    }
+    
     //    В новостной ленте присутствует массив ячеек
     let cells: [Cell]
 }

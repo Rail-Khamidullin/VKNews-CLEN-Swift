@@ -52,7 +52,8 @@ class NewsfeedPresenter: NewsfeedPresentationLogic {
         let date = Date(timeIntervalSince1970: feedItem.date)
         //        Записываем нашу дату настроенной в DateFormatter
         let dateTitle = dateFormatter.string(from: date)
-        
+        //        Достаём наш пост
+        let photoAttachment = self.photoAttachment(feedItem: feedItem)
         //        Возвращаем нашу структуру с данными для ячейки
         return FeedViewModel.Cell.init(iconUrlString: profiles.photo,
                                        name: profiles.name,
@@ -61,8 +62,8 @@ class NewsfeedPresenter: NewsfeedPresentationLogic {
                                        likes: String(feedItem.likes?.count ?? 0),
                                        comments: String(feedItem.comments?.count ?? 0),
                                        shares: String(feedItem.reposts?.count ?? 0),
-                                       views: String(feedItem.views?.count ?? 0))
-        
+                                       views: String(feedItem.views?.count ?? 0),
+                                       photoAttachment: photoAttachment)
     }
     
     //    Метод, который отсортирует sourceId на положительные, отрицательные и достанет необходимый id длы вывода фото, имя и даты
@@ -77,6 +78,21 @@ class NewsfeedPresenter: NewsfeedPresentationLogic {
             //            Пробегаемся по всему массиву profilesOrGroups и первый у кого совпал, того мы и запоминаем
             myProfileRepresentable.id == normalSourceid
         }
-        return profileRepresentable!
+        return profileRepresentable! 
+    }
+    
+    //    Проверям наличие изображения и возвращаем его
+    private func photoAttachment(feedItem: FeedItem) -> FeedViewModel.FeedCellPhotoAttachment? {
+        //        Проверяем наличие фото, пробегаясь по attachments через compactMap
+        guard let photo = feedItem.attachments?.compactMap({ (attachment) in
+            attachment.photo
+            //            Из массива фотографий берём первое фото
+        }), let firstPhoto = photo.first else {
+            return nil
+        }
+        //        Передаём в нашу модель данные поста: адрес, ширина, высота
+        return FeedViewModel.FeedCellPhotoAttachment.init(photoUrlString: firstPhoto.srcBIG,
+                                                          width: firstPhoto.width,
+                                                          height: firstPhoto.height)
     }
 }

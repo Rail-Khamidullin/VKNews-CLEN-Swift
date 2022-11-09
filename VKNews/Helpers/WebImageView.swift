@@ -10,12 +10,12 @@ import UIKit
 
 
 //   Класс, который загружает с сервера изображения и отправляет их в кеш для дальнейшего переиспользования в иконках
-final class WebImageView: UIImageView {
+class WebImageView: UIImageView {
     
     //    Метод для получения иконки профиля человека или группы из сети
-    func set(imageUrl: String ) {
+    func set(imageUrl: String? ) {
         //        Проверям url адресс
-        guard let url = URL(string: imageUrl) else { return }
+        guard let imageUrl = imageUrl, let url = URL(string: imageUrl) else { return }
         
         //        Проверяем было ли загружено уже изображение (имеется оно в нашем Кеш)
         if let cachedResponse = URLCache.shared.cachedResponse(for: URLRequest(url: url)) {
