@@ -15,13 +15,14 @@ protocol NewsfeedDisplayLogic: class {
 class NewsfeedViewController: UIViewController, NewsfeedDisplayLogic {
     
     var interactor: NewsfeedBusinessLogic?
+    
     var router: (NSObjectProtocol & NewsfeedRoutingLogic)?
     //    Создаём модель данных новостной ленты  FeedViewModel, которая содержит посты нашего массива
     private var feedViewModel = FeedViewModel.init(cells: [])
     //    Наша таблица
     @IBOutlet weak var tableView: UITableView!
     
-    // MARK: Setup
+    // MARK: Setup (конфигурация модуля )
     
     private func setup() {
         let viewController        = self

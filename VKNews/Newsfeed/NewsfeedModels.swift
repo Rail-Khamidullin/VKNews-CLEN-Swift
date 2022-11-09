@@ -55,6 +55,8 @@ struct FeedViewModel {
         var views: String?
         //        Изображение поста
         var photoAttachment: FeedCellPhotoAttachmentViewModel?
+        //        Размеры объектов text и photoAttachment
+        var sizes: FeedCellSizes
     }
     
     struct FeedCellPhotoAttachment: FeedCellPhotoAttachmentViewModel {

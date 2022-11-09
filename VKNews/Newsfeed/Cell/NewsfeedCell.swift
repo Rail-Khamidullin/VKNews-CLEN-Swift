@@ -20,6 +20,8 @@ protocol FeedCellViewModel {
     var shares: String? { get }
     var views: String? { get }
     var photoAttachment: FeedCellPhotoAttachmentViewModel? { get }
+    //    Содержит размеры изменяющихся объектов
+    var sizes: FeedCellSizes { get }
 }
 
 //   Протокол с размерами получаемого изображения поста
@@ -27,6 +29,14 @@ protocol FeedCellPhotoAttachmentViewModel {
     var photoUrlString: String? { get }
     var width: Int { get }
     var height: Int { get }
+}
+
+//   Размеры и координаты наших объектов
+protocol FeedCellSizes {
+    //    Размер текста
+    var postLabelFrame: CGRect { get }
+    //    Размер фото
+    var attacmentFrame: CGRect { get }
 }
 
 //   Наша ячейка в таблице
@@ -89,6 +99,9 @@ class NewsfeedCell: UITableViewCell {
         commentsLabel.text = viewModel.comments
         sharesLabel.text = viewModel.shares
         viewsLabel.text = viewModel.views
+        //        Присваиваем размеры postLabel и postImageView
+        postLabel.frame = viewModel.sizes.postLabelFrame
+        postImageView.frame = viewModel.sizes.attacmentFrame
         
         //        Проверяем наличие фото
         if let  photoAttachment = viewModel.photoAttachment {

@@ -13,7 +13,10 @@ protocol NewsfeedPresentationLogic {
 }
 
 class NewsfeedPresenter: NewsfeedPresentationLogic {
+    
     weak var viewController: NewsfeedDisplayLogic?
+    //    ОБъект нашего протокола с инициализировали под класс FeedCellLayoutCalculator. Содержит в себе метод, который считает размеры объектов (post text, attachment photo), куда передаём ширину нашего экрана UIScreen.main.bounds.width
+    var cellLayoutCalculator: FeedCellLayoutCalculatorProtocol = FeedCellLayoutCalculator()
     
     //    Создаём форматер нашей даты
     let dateFormatter: DateFormatter = {
@@ -54,6 +57,8 @@ class NewsfeedPresenter: NewsfeedPresentationLogic {
         let dateTitle = dateFormatter.string(from: date)
         //        Достаём наш пост
         let photoAttachment = self.photoAttachment(feedItem: feedItem)
+        
+        let sizes = cellLayoutCalculator.sizes(postText: feedItem.text, attachmentPhoto: photoAttachment)
         //        Возвращаем нашу структуру с данными для ячейки
         return FeedViewModel.Cell.init(iconUrlString: profiles.photo,
                                        name: profiles.name,
@@ -63,7 +68,8 @@ class NewsfeedPresenter: NewsfeedPresentationLogic {
                                        comments: String(feedItem.comments?.count ?? 0),
                                        shares: String(feedItem.reposts?.count ?? 0),
                                        views: String(feedItem.views?.count ?? 0),
-                                       photoAttachment: photoAttachment)
+                                       photoAttachment: photoAttachment,
+                                       sizes: sizes)
     }
     
     //    Метод, который отсортирует sourceId на положительные, отрицательные и достанет необходимый id длы вывода фото, имя и даты
