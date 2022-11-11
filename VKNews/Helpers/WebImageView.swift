@@ -15,7 +15,11 @@ class WebImageView: UIImageView {
     //    Метод для получения иконки профиля человека или группы из сети
     func set(imageUrl: String? ) {
         //        Проверям url адресс
-        guard let imageUrl = imageUrl, let url = URL(string: imageUrl) else { return }
+        guard let imageUrl = imageUrl, let url = URL(string: imageUrl) else {
+            //            Если не удалось извлечь картинку, то выводим nil
+            self.image = nil
+            return
+        }
         
         //        Проверяем было ли загружено уже изображение (имеется оно в нашем Кеш)
         if let cachedResponse = URLCache.shared.cachedResponse(for: URLRequest(url: url)) {
@@ -23,16 +27,16 @@ class WebImageView: UIImageView {
             self.image = UIImage(data: cachedResponse.data)
             return
         }
-                
+        
         //        Если в Кеш данных нет, то достаём данные для изображения из сети
         let dataTask = URLSession.shared.dataTask(with: url) { [weak self] (data, response, error) in
             //            Загружаем асинхронно в главной очереди
             DispatchQueue.main.async {
                 if let data = data,
                    let response = response {
-//                    Присваиваем полученное изображение
+                    //                    Присваиваем полученное изображение
                     self?.image = UIImage(data: data)
-//                    Вызываем метод передачи загруженных изображений в кеш
+                    //                    Вызываем метод передачи загруженных изображений в кеш
                     self?.handleloadedImage(data: data, response: response)
                 }
             }

@@ -19,7 +19,7 @@ struct FeedResponse: Decodable {
     var items: [FeedItem]
     //    Профиль выложивший новость
     var profiles: [Profile]
-    
+    //    Профиль группы, которая выложила пост
     var groups: [Group]
 }
 
@@ -75,7 +75,7 @@ struct Photo: Decodable {
     
     //    Получаем необходимый нам размер изображения из массива
     private func getPropperSize() -> PhotoSize {
-        //        Пробегаемся по массиву и находим первое изображение с типом "x"
+        //        Пробегаемся по массиву и находим первое изображение с типом "x". Размер типа Х больше всго подходит для экрана телефона (спарвочник ВК)
         if let sizeX = sizes.first(where: {$0.type == "x"}) {
             return sizeX
         } else if let fallBackSize = sizes.last {

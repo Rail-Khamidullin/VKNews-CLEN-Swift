@@ -26,8 +26,11 @@ protocol FeedCellViewModel {
 
 //   Протокол с размерами получаемого изображения поста
 protocol FeedCellPhotoAttachmentViewModel {
+    //    Адрес изображения
     var photoUrlString: String? { get }
+    //    Шириа
     var width: Int { get }
+    //    Высота
     var height: Int { get }
 }
 
@@ -37,6 +40,10 @@ protocol FeedCellSizes {
     var postLabelFrame: CGRect { get }
     //    Размер фото
     var attacmentFrame: CGRect { get }
+    //    Вьюшка с нашими объектами: лайки, комментарии, репосты и просмотры
+    var buttonViewFrame: CGRect { get }
+    //    Высота всей ячейки
+    var totalHeight: CGFloat { get }
 }
 
 //   Наша ячейка в таблице
@@ -65,8 +72,14 @@ class NewsfeedCell: UITableViewCell {
     @IBOutlet weak var viewsLabel: UILabel!
     //    Изображение со стены
     @IBOutlet weak var postImageView: WebImageView!
+    //    Вьюшка с нашими объектами: лайки, комментарии, репосты и просмотры
+    @IBOutlet weak var bottomView: UIView!
     
-    
+    //    Метод для многократного использования ячейки
+    override func prepareForReuse() {
+        iconImageView.set(imageUrl: nil)
+        postImageView.set(imageUrl: nil)
+    }
     override func awakeFromNib() {
         super.awakeFromNib()
         //        Метод с доп изменением объектов экрана
@@ -75,18 +88,17 @@ class NewsfeedCell: UITableViewCell {
     
     //    Подготовка объектов к отображению
     private func prepareObject() {
-        //        Если iconImageView существует, то код ниже выполняется????
-        if let iconImageView = iconImageView {
-            //            Делаем нашу иконку круглой
-            iconImageView.layer.cornerRadius = iconImageView.frame.width / 2
-            iconImageView.clipsToBounds = true
-            //            Скругляем углы нашего фона
-            backView.layer.cornerRadius = 10
-            backView.clipsToBounds = true
-            //            Убираем заливку и выделение ячейки при нажатии
-            backgroundColor = .clear
-            selectionStyle = .none
-        }
+        
+        //            Делаем нашу иконку круглой
+        iconImageView.layer.cornerRadius = iconImageView.frame.width / 2
+        iconImageView.clipsToBounds = true
+        //            Скругляем углы нашего фона
+        backView.layer.cornerRadius = 10
+        backView.clipsToBounds = true
+        //            Убираем заливку и выделение ячейки при нажатии
+        backgroundColor = .clear
+        selectionStyle = .none
+        
     }
     
     //    Передаём нашим элементам данные
@@ -99,12 +111,13 @@ class NewsfeedCell: UITableViewCell {
         commentsLabel.text = viewModel.comments
         sharesLabel.text = viewModel.shares
         viewsLabel.text = viewModel.views
-        //        Присваиваем размеры postLabel и postImageView
+        //        Присваиваем размеры postLabel, postImageView, bottomView
         postLabel.frame = viewModel.sizes.postLabelFrame
         postImageView.frame = viewModel.sizes.attacmentFrame
+        bottomView.frame = viewModel.sizes.buttonViewFrame
         
         //        Проверяем наличие фото
-        if let  photoAttachment = viewModel.photoAttachment {
+        if let photoAttachment = viewModel.photoAttachment {
             //            Если фото имеется, то отображаем его на экране
             postImageView.set(imageUrl: photoAttachment.photoUrlString)
             //            И отображаем postImageView
