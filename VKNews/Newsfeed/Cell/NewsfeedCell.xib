@@ -39,7 +39,7 @@
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                        <color key="textColor" red="0.50588235294117645" green="0.5490196078431373" blue="0.59999999999999998" alpha="0.84705882352941175" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="textColor" red="0.8901960784313725" green="0.89803921568627454" blue="0.90980392156862744" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="clip" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K9M-oC-Uoh">
@@ -47,7 +47,7 @@
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
-                                        <color key="textColor" red="0.17254901960784313" green="0.1764705882352941" blue="0.1803921568627451" alpha="0.84705882352941175" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="textColor" red="0.17279999999999998" green="0.1764" blue="0.17999999999999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
@@ -58,7 +58,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <nil key="textColor"/>
+                                <color key="textColor" red="0.17279999999999998" green="0.1764" blue="0.17999999999999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nj7-Qa-ekX" customClass="WebImageView" customModule="VKNews" customModuleProvider="target">
@@ -156,7 +156,7 @@
                 <outlet property="dateLabel" destination="lya-BU-cfu" id="f8h-0a-uan"/>
                 <outlet property="iconImageView" destination="IVM-N0-5Wn" id="pZO-1j-W6L"/>
                 <outlet property="likesLabel" destination="CRb-J1-tSR" id="ebq-k7-bIh"/>
-                <outlet property="namelabel" destination="K9M-oC-Uoh" id="jRK-mR-mZH"/>
+                <outlet property="nameLabel" destination="K9M-oC-Uoh" id="jRK-mR-mZH"/>
                 <outlet property="postImageView" destination="nj7-Qa-ekX" id="g9i-YK-O7Z"/>
                 <outlet property="postLabel" destination="ATL-NA-Y5t" id="DDG-ym-HtZ"/>
                 <outlet property="sharesLabel" destination="dpy-oY-DXS" id="jgl-ib-vNH"/>

@@ -57,7 +57,7 @@ class NewsfeedCell: UITableViewCell {
     //    Иконка с отображением группы или профиля человека
     @IBOutlet weak var iconImageView: WebImageView!
     //    Название группы и или имя профиля
-    @IBOutlet weak var namelabel: UILabel!
+    @IBOutlet weak var nameLabel: UILabel!
     //    Дата опубликования
     @IBOutlet weak var dateLabel: UILabel!
     //    Будет содержать в себе текст
@@ -104,7 +104,7 @@ class NewsfeedCell: UITableViewCell {
     //    Передаём нашим элементам данные
     func set(viewModel: FeedCellViewModel) {
         iconImageView.set(imageUrl: viewModel.iconUrlString)
-        namelabel.text = viewModel.name
+        nameLabel.text = viewModel.name
         dateLabel.text = viewModel.date
         postLabel.text = viewModel.text
         likesLabel.text = viewModel.likes

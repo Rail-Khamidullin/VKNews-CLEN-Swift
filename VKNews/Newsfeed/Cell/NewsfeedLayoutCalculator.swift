@@ -21,20 +21,6 @@ struct Sizes: FeedCellSizes {
     var totalHeight: CGFloat
 }
 
-//   Фиксируем размеры BackView
-struct Constants {
-    //    Расположение BackView
-    static let backInsets = UIEdgeInsets(top: 0, left: 8, bottom: 7, right: 8)
-    //    Высота topView
-    static let topViewHight: CGFloat = 36
-    //    Расположение пост лейбла на экране
-    static let postLabelInsets = UIEdgeInsets(top: 8 + topViewHight + 8, left: 8, bottom: 8, right: 8)
-    //    Высота шрифта пост лейбла
-    static let postLabelFont = UIFont.systemFont(ofSize: 15)
-    //    Высота buttonView
-    static let buttonViewHeight: CGFloat = 44
-}
-
 //   Создаём протокол, который будет хранить в себе метод определения размеров текста и изображения
 protocol FeedCellLayoutCalculatorProtocol {
     func sizes(postText: String?, attachmentPhoto: FeedCellPhotoAttachmentViewModel?) -> FeedCellSizes
@@ -46,12 +32,12 @@ final class FeedCellLayoutCalculator: FeedCellLayoutCalculatorProtocol {
     //    Ширина экрана
     private let screenWidth: CGFloat
     
-    //    Инициализируем наше св-во где шириа экрана равна минимальному размеру экрана проверяя ширину и высоту экрана
+    //    Инициализируем наше св-во где ширина экрана равна минимальному размеру экрана проверяя ширину и высоту экрана
     init(screenWidth: CGFloat = min(UIScreen.main.bounds.width, UIScreen.main.bounds.height)) {
         self.screenWidth = screenWidth
     }
     
-    //    Определяем размеры объектов
+    //    Определение динамических размеров объектов
     func sizes(postText: String?, attachmentPhoto: FeedCellPhotoAttachmentViewModel?) -> FeedCellSizes {
         
         //        Размеры заднего фона ячейки
