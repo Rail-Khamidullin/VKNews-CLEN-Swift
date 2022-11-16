@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Deq-PK-yp6">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -13,29 +13,29 @@
             <objects>
                 <viewController id="Deq-PK-yp6" customClass="NewsfeedViewController" customModule="VKNews" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="m1t-Jw-gGf">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="0Td-dh-D0M">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
-                                    <outlet property="dataSource" destination="Deq-PK-yp6" id="iSD-0e-AzU"/>
-                                    <outlet property="delegate" destination="Deq-PK-yp6" id="qgc-OB-BnI"/>
+                                    <outlet property="dataSource" destination="Deq-PK-yp6" id="SuE-W8-WNF"/>
+                                    <outlet property="delegate" destination="Deq-PK-yp6" id="7ZL-pw-yne"/>
                                 </connections>
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Wtc-GP-fsh"/>
                         <color key="backgroundColor" systemColor="systemOrangeColor"/>
                         <constraints>
+                            <constraint firstItem="0Td-dh-D0M" firstAttribute="bottom" secondItem="Wtc-GP-fsh" secondAttribute="bottom" id="16q-gY-IKb"/>
                             <constraint firstItem="0Td-dh-D0M" firstAttribute="leading" secondItem="Wtc-GP-fsh" secondAttribute="leading" id="24H-vc-LJO"/>
-                            <constraint firstAttribute="bottom" secondItem="0Td-dh-D0M" secondAttribute="bottom" id="QGh-aG-eKf"/>
                             <constraint firstItem="0Td-dh-D0M" firstAttribute="trailing" secondItem="Wtc-GP-fsh" secondAttribute="trailing" id="Xuh-f8-iq7"/>
                             <constraint firstItem="0Td-dh-D0M" firstAttribute="top" secondItem="m1t-Jw-gGf" secondAttribute="top" id="yeE-fM-BDK"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="tableView" destination="0Td-dh-D0M" id="bUQ-BI-mFO"/>
+                        <outlet property="tableView" destination="0Td-dh-D0M" id="r9p-EE-KtF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vpX-Ae-Pqy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -44,9 +44,6 @@
         </scene>
     </scenes>
     <resources>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
         <systemColor name="systemOrangeColor">
             <color red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

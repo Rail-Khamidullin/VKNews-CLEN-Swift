@@ -28,4 +28,12 @@ struct Constants {
     static let bottomViewViewWidth: CGFloat = 80
     //    Размеры ширины и высоты для изображения обозначения ячеек (лайки, комменты и др.) в bottomView
     static let bottomViewViewsIconSize: CGFloat = 24
+    //    Кол-во строк для отображения без доп кнопки
+    static let minifiedPostLimitLines: CGFloat = 8
+    //    Кол-во строк для отображения с доп кнопкой
+    static let minifiedPostLines: CGFloat = 6
+    //    Размер кнопки с раскрытием
+    static let moreTextButtonSize = CGSize(width: 170, height: 30)
+    //    Отступы кнопки
+    static let moreTextButtonInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 0)
 }

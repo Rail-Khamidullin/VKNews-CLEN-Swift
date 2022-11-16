@@ -31,7 +31,6 @@ class NewsfeedPresenter: NewsfeedPresentationLogic {
     func presentData(response: Newsfeed.Model.Response.ResponseType) {
         //  Посколько мы из Интректора вызвали request.getNewsFeed попадаем сюда, то
         switch response {
-        
         //        Данные которые получили и обработали (свернули в модель для отображения нужного нам формата) передаём в файл viewController
         case .presentNewsfeed(feed: let feed):
             
@@ -48,7 +47,6 @@ class NewsfeedPresenter: NewsfeedPresentationLogic {
     
     //        Конвертируем формат FeedResponse.items в формат FeedCellViewModel.cells
     private func cellViewModel( from feedItem: FeedItem, profiles: [Profile], groups: [Group]) -> FeedViewModel.Cell {
-        
         
         let profiles = self.profile(for: feedItem.sourceId, profile: profiles, groups: groups)
         //        Достаём формат даты 1970 года для нешего feedItem.date

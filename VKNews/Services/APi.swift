@@ -10,7 +10,6 @@ import Foundation
 
 
 struct APi {
-    
     //    Протокол
     static let sheme = "https"
     //    Название сайта

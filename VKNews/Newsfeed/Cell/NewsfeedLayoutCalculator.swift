@@ -11,8 +11,11 @@ import UIKit
 
 //   Структура с размерами текста и изображения
 struct Sizes: FeedCellSizes {
+    
     //    Текствое поле
     var postLabelFrame: CGRect
+    
+    var moreTextButtonFrame: CGRect
     //    Изображение
     var attacmentFrame: CGRect
     //    Вьюшки с: репостами, лайками, просмотрами и комментариями
@@ -40,6 +43,9 @@ final class FeedCellLayoutCalculator: FeedCellLayoutCalculatorProtocol {
     //    Определение динамических размеров объектов
     func sizes(postText: String?, attachmentPhoto: FeedCellPhotoAttachmentViewModel?) -> FeedCellSizes {
         
+        //        Флажок, определяющий показывать кнопку для большого текста или нет
+        var showMoreTextButton = false
+        
         //        Размеры заднего фона ячейки
         let backViewWith = screenWidth - Constants.backInsets.left - Constants.backInsets.right
         
@@ -53,32 +59,51 @@ final class FeedCellLayoutCalculator: FeedCellLayoutCalculatorProtocol {
         if let text = postText, !text.isEmpty {
             //            Определяем ширину и высоту пост лейбла
             let width = backViewWith - Constants.postLabelInsets.left - Constants.postLabelInsets.right
-            let height = text.height(width: width, font: Constants.postLabelFont)
+            var height = text.height(width: width, font: Constants.postLabelFont)
+            //            Создаём максимальное кол-во строк для отображения без кнопки
+            let limitHeight = Constants.postLabelFont.lineHeight * Constants.minifiedPostLimitLines
+            
+            if height > limitHeight {
+                height = Constants.minifiedPostLines * Constants.postLabelFont.lineHeight
+                showMoreTextButton = true
+            }
             //            Присваиваем нашему посту размеры изображения
             postlabelFrame.size = CGSize(width: width, height: height)
         }
         
+        // MARK: - работа с moreTextButtonFrame
+        
+        //        Размер кнопки = 0
+        var moreTextButtonSize = CGSize.zero
+        //        Если кнопку необходимо показать
+        if showMoreTextButton {
+            //            То устанавливаем ей размер
+            moreTextButtonSize = Constants.moreTextButtonSize
+        }
+        //        Расположение кнопки
+        let moreTextButtonOrigin = CGPoint(x: Constants.moreTextButtonInsets.left, y: postlabelFrame.maxY)
+        //        Устанавливаем ей размер и расположение
+        let moreTextButtonFrame = CGRect(origin: moreTextButtonOrigin, size: moreTextButtonSize)
+        
         // MARK: - работа с attachmentPhoto Frame
         
-        //        Первый поиск координаты y. Если пост с текстом отсутсвует, то y будет равен сумме максимальной выосты лейбла с постом + констрейнт от поста с тексотм до изображения новости
-        let attachmentTop = postlabelFrame.size == CGSize.zero ? Constants.postLabelInsets.top : postlabelFrame.maxY + Constants.postLabelInsets.bottom
+        //        Первый поиск координаты y. Если пост с текстом отсутсвует, то y будет равен сумме максимальной выосты лейбла с постом + констрейнт от поста с текстом до изображения новости
+        let attachmentTop = postlabelFrame.size == CGSize.zero ? Constants.postLabelInsets.top : moreTextButtonFrame.maxY + Constants.postLabelInsets.bottom
         
         //        Второй вариант поиска координаты y
         //        let photoY = (8 + Constants.topViewHight + 8 + postlabelFrame.size.height + 8)
-        let photoX = CGFloat(8)
         //        Устанавливаем расположение и размеры изображения
-        var attachmentFrame = CGRect(origin: CGPoint(x: photoX, y: attachmentTop), size: CGSize.zero)
+        var attachmentFrame = CGRect(origin: CGPoint(x: 0, y: attachmentTop), size: CGSize.zero)
         //        Если фото есть
         if let photoAttachment = attachmentPhoto {
             //            Ширина изображения
-            let width = postlabelFrame.width
             let photoWidth: Float = Float(photoAttachment.width)
             //            Высота изображения
             let photoHeight: Float = Float(photoAttachment.height)
             //            Соотношение высоты к ширине
             let ratio = CGFloat(photoHeight / photoWidth)
             //            Добавдяем размеры
-            attachmentFrame.size = CGSize(width: width, height: backViewWith * ratio)
+            attachmentFrame.size = CGSize(width: backViewWith, height: backViewWith * ratio)
         }
         
         // MARK: - Работа с buttonViewFrame
@@ -89,10 +114,9 @@ final class FeedCellLayoutCalculator: FeedCellLayoutCalculatorProtocol {
         //        let buttonY = (attachmentTop + attachmentFrame.size.height + 7 + 3)
         //        Второй вариант поиска координаты Y
         let buttonY = max(postlabelFrame.maxY, attachmentFrame.maxY)
-        //        Ширина buttonView
-        let buttonWith = backViewWith - 8 - 8
         //        Расположение и размеры buttonView
-        let buttonViewFrame = CGRect(x: buttonX, y: buttonY, width: buttonWith, height: Constants.buttonViewHeight)
+        let buttonViewFrame = CGRect(origin: CGPoint(x: 0, y: buttonY),
+                                     size: CGSize(width: backViewWith, height: Constants.buttonViewHeight))
         
         // MARK: - работа над общей высотой ячейки
         
@@ -100,6 +124,7 @@ final class FeedCellLayoutCalculator: FeedCellLayoutCalculatorProtocol {
         
         //        Временные размеры
         return Sizes(postLabelFrame: postlabelFrame,
+                     moreTextButtonFrame: moreTextButtonFrame,
                      attacmentFrame: attachmentFrame,
                      buttonViewFrame: buttonViewFrame,
                      totalHeight: cellHeight)

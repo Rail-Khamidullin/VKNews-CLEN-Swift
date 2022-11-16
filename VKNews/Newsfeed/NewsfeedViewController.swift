@@ -12,7 +12,7 @@ protocol NewsfeedDisplayLogic: class {
     func displayData(viewModel: Newsfeed.Model.ViewModel.ViewModelData)
 }
 
-class NewsfeedViewController: UIViewController, NewsfeedDisplayLogic {
+class NewsfeedViewController: UIViewController, NewsfeedDisplayLogic, NewsFeedCodeDelegate {
     
     var interactor: NewsfeedBusinessLogic?
     
@@ -49,7 +49,6 @@ class NewsfeedViewController: UIViewController, NewsfeedDisplayLogic {
         tableView.backgroundColor = .clear
         //        Меняем цвет родительского view
         view.backgroundColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
-        
         //    Регистрируем нашу ячейку NewsfeedCell
         tableView.register(UINib(nibName: "NewsfeedCell", bundle: nil), forCellReuseIdentifier: NewsfeedCell.reuseId)
         //        Регистрируем новуу ячейку, где будем создавать отображение объектов программно
@@ -69,6 +68,11 @@ class NewsfeedViewController: UIViewController, NewsfeedDisplayLogic {
             tableView.reloadData()
         }
     }
+    
+    // MARK: - реализуем функцию протокола NewsFeedCodeDelegate
+    
+    func revealPost(for cell: NewsfeedCodeCell) {
+    }
 }
 
 extension NewsfeedViewController: UITableViewDelegate, UITableViewDataSource {
@@ -83,20 +87,16 @@ extension NewsfeedViewController: UITableViewDelegate, UITableViewDataSource {
         /*
          //        Создаём ячейку
          let cell = tableView.dequeueReusableCell(withIdentifier: NewsfeedCell.reuseId, for: indexPath) as! NewsfeedCell
-         
-         //        Достаём ячейку с массивом данных
-         let cellViewModel = feedViewModel.cells[indexPath.row]
-         //        Передаём в наши объекты данные для отображения
-         cell.set(viewModel: cellViewModel)
          */
         
         ///   2-ой вариант: Работать полностью программно
-        
         let cell = tableView.dequeueReusableCell(withIdentifier: NewsfeedCodeCell.reuseId, for: indexPath) as! NewsfeedCodeCell
         //        Достаём ячейку с массивом данных
         let cellViewModel = feedViewModel.cells[indexPath.row]
         //        Передаём в наши объекты данные для отображения
         cell.set(viewModel: cellViewModel)
+        //        Делегат будет реализовывать ячейка
+        cell.delegate = self
         
         return cell
     }

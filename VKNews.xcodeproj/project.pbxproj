@@ -17,6 +17,7 @@
 		3303C6A829155BCA0095DAAB /* NewsfeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3303C6A729155BCA0095DAAB /* NewsfeedCell.swift */; };
 		3303C6AB29155C9F0095DAAB /* NewsfeedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3303C6AA29155C9F0095DAAB /* NewsfeedCell.xib */; };
 		3303C6B1291A46D20095DAAB /* WebImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3303C6B0291A46D20095DAAB /* WebImageView.swift */; };
+		332874F32924D9140073C00F /* ExtensionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332874F22924D9140073C00F /* ExtensionTableViewCell.swift */; };
 		334635BB291BECAF00CE426F /* NewsfeedLayoutCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 334635BA291BECAF00CE426F /* NewsfeedLayoutCalculator.swift */; };
 		334635BE291CD1B800CE426F /* String + Height.swift in Sources */ = {isa = PBXBuildFile; fileRef = 334635BD291CD1B800CE426F /* String + Height.swift */; };
 		334635C2291E411800CE426F /* NewsfeedCodeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 334635C1291E411800CE426F /* NewsfeedCodeCell.swift */; };
@@ -48,6 +49,7 @@
 		3303C6A729155BCA0095DAAB /* NewsfeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsfeedCell.swift; sourceTree = "<group>"; };
 		3303C6AA29155C9F0095DAAB /* NewsfeedCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewsfeedCell.xib; sourceTree = "<group>"; };
 		3303C6B0291A46D20095DAAB /* WebImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebImageView.swift; sourceTree = "<group>"; };
+		332874F22924D9140073C00F /* ExtensionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionTableViewCell.swift; sourceTree = "<group>"; };
 		334635BA291BECAF00CE426F /* NewsfeedLayoutCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsfeedLayoutCalculator.swift; sourceTree = "<group>"; };
 		334635BD291CD1B800CE426F /* String + Height.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String + Height.swift"; sourceTree = "<group>"; };
 		334635C1291E411800CE426F /* NewsfeedCodeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsfeedCodeCell.swift; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 				3303C6B0291A46D20095DAAB /* WebImageView.swift */,
 				334635BD291CD1B800CE426F /* String + Height.swift */,
 				334635C6291E4C8000CE426F /* Constraints.swift */,
+				332874F22924D9140073C00F /* ExtensionTableViewCell.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -304,6 +307,7 @@
 				33E5A8342908068400B10265 /* AuthViewController.swift in Sources */,
 				334635BB291BECAF00CE426F /* NewsfeedLayoutCalculator.swift in Sources */,
 				33E5A8302908068400B10265 /* AppDelegate.swift in Sources */,
+				332874F32924D9140073C00F /* ExtensionTableViewCell.swift in Sources */,
 				3303C6962913CA110095DAAB /* NewsfeedPresenter.swift in Sources */,
 				3303C6982913CA110095DAAB /* NewsfeedRouter.swift in Sources */,
 				33E5A8322908068400B10265 /* SceneDelegate.swift in Sources */,

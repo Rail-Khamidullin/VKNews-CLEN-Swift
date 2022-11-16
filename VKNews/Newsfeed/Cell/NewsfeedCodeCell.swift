@@ -9,11 +9,20 @@
 import Foundation
 import UIKit
 
+//   Делегат, который будет раскрывать ячейку с текстом по нажатию на кнопку
+protocol NewsFeedCodeDelegate: class {
+    //    Расскрывает пост по определённой ячейке
+    func revealPost(for cell: NewsfeedCodeCell)
+}
+
 //   Расположение объектов ПРОГРАММНО !!!
 class NewsfeedCodeCell: UITableViewCell {
     
     //    Айди нашей ячейки
     static let reuseId = "NewsfeedCodeCell"
+    
+    //    Создадим переменную делегата выше
+    weak var delegate: NewsFeedCodeDelegate?
     
     /// Первый слой_________
     //    Основной задний фон экрана
@@ -29,7 +38,6 @@ class NewsfeedCodeCell: UITableViewCell {
     let topView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         return view
     }()
     //    Поле с текстом поста
@@ -38,9 +46,18 @@ class NewsfeedCodeCell: UITableViewCell {
         label.numberOfLines = 0
         //        Размер шрифта
         label.font = Constants.postLabelFont
-        label.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         label.textColor = #colorLiteral(red: 0.2276472747, green: 0.2322267592, blue: 0.2365691364, alpha: 1)
         return label
+    }()
+    //    Кнопка открытия полного отображения текста поста
+    let moreTextButton: UIButton = {
+        let button = UIButton()
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .medium)
+        button.setTitleColor(#colorLiteral(red: 0.4, green: 0.6235294118, blue: 0.831372549, alpha: 1), for: .normal)
+        button.contentHorizontalAlignment = .left
+        button.contentVerticalAlignment = .center
+        button.setTitle("Показать полностью...", for: .normal)
+        return button
     }()
     //    Изображения с поста
     let postImageView: WebImageView = {
@@ -51,15 +68,12 @@ class NewsfeedCodeCell: UITableViewCell {
     //    bottomView для хранения объектов с просмотрами, лайками, комментариями и репостами
     let bottomView: UIView = {
         let view = UIView()
-        view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         return view
     }()
-    
     /// Третий слой на topView_________
     let iconImageView: WebImageView = {
         let imageView = WebImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         return imageView
     }()
     //    Имя сообщества или человека
@@ -69,16 +83,14 @@ class NewsfeedCodeCell: UITableViewCell {
         label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
         label.numberOfLines = 0
         label.textColor = #colorLiteral(red: 0.2276472747, green: 0.2322267592, blue: 0.2365691364, alpha: 1)
-        label.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         return label
     }()
     //    Дата публикации поста
     let dateLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 12, weight: .regular)
+        label.font = UIFont.systemFont(ofSize: 12)
         label.textColor = #colorLiteral(red: 0.5058823529, green: 0.5490196078, blue: 0.6, alpha: 1)
-        label.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         return label
     }()
     
@@ -87,31 +99,26 @@ class NewsfeedCodeCell: UITableViewCell {
     let likesView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         return view
     }()
     //    Вьшка с комментариями
     let commentsView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         return view
     }()
     //    Вьшка с репостами
     let sharesView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         return view
     }()
     //    Вьшка с просмотрами
     let viewsView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         return view
     }()
-    
     /// Четвёртый слой на BottomView_________
     //    Заполнение ячейки изображения: лайки, комментарии, репосты, просмотры
     let likesImage: UIImageView = {
@@ -176,24 +183,39 @@ class NewsfeedCodeCell: UITableViewCell {
         return label
     }()
     
+    //    Метод для многократного использования ячейки
+    override func prepareForReuse() {
+        iconImageView.set(imageUrl: nil)
+        postImageView.set(imageUrl: nil)
+    }
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         //            Делаем нашу иконку круглой
-        iconImageView.layer.cornerRadius = iconImageView.frame.width / 2
+        iconImageView.layer.cornerRadius = Constants.topViewHight / 2 
         iconImageView.clipsToBounds = true
-        //            Скругляем углы нашего фона
-        backView.layer.cornerRadius = 10
-        backView.clipsToBounds = true
         //            Убираем заливку и выделение ячейки при нажатии
         backgroundColor = .clear
         selectionStyle = .none
+        //            Скругляем углы нашего фона
+        backView.layer.cornerRadius = 10
+        backView.clipsToBounds = true
+        
+        //        Добавляем действие по нажатию на кнопку
+        moreTextButton.addTarget(self, action: #selector(moreTextButtonTouch), for: .touchUpInside)
         
         overlayFirstLayer()   // Первый слой
         overlaySecondLayer()   // Второй слой
         overlayThirdLayerOnTopView()   // Третий слой на topView
         overlayThirdLayerOnBottomView()   // Третий слой на bottomView
         overlayFourthLayerOnBottomViewViews()   // Четвёртый слой на ячейках BottomView
+        
+        contentView.isUserInteractionEnabled = true
+    }
+    
+    @objc private func moreTextButtonTouch() {
+        delegate?.revealPost(for: self)
     }
     
     //    Передаём нашим элементам данные
@@ -211,6 +233,7 @@ class NewsfeedCodeCell: UITableViewCell {
         postLabel.frame = viewModel.sizes.postLabelFrame
         postImageView.frame = viewModel.sizes.attacmentFrame
         bottomView.frame = viewModel.sizes.buttonViewFrame
+        moreTextButton.frame = viewModel.sizes.moreTextButtonFrame
         
         //        Проверяем наличие фото
         if let photoAttachment = viewModel.photoAttachment {
@@ -229,11 +252,14 @@ class NewsfeedCodeCell: UITableViewCell {
         //        Добавляем объекты в ячейки BottomView: лайки, комментарии, просмотры и репосты
         likesView.addSubview(likesImage)
         likesView.addSubview(likesLabel)
+        
         commentsView.addSubview(commentsImage)
         commentsView.addSubview(commentsLabel)
+        
         sharesView.addSubview(sharesImage)
         sharesView.addSubview(sharesLabel)
-        viewsView.addSubview(viewsImage )
+        
+        viewsView.addSubview(viewsImage)
         viewsView.addSubview(viewsLabel)
         //        Устанавливаем привязку объектов
         helpInFourthLayer(view: likesView, imageView: likesImage, label: likesLabel)
@@ -324,6 +350,7 @@ class NewsfeedCodeCell: UITableViewCell {
         //        Добавляем backView на экран
         backView.addSubview(topView)
         backView.addSubview(postLabel)
+        backView.addSubview(moreTextButton)
         backView.addSubview(postImageView)
         backView.addSubview(bottomView)
         
@@ -333,6 +360,18 @@ class NewsfeedCodeCell: UITableViewCell {
         topView.trailingAnchor.constraint(equalTo: backView.trailingAnchor, constant: -8).isActive = true
         topView.topAnchor.constraint(equalTo: backView.topAnchor, constant: 8).isActive = true
         topView.heightAnchor.constraint(equalToConstant: Constants.topViewHight).isActive = true
+        
+        // postlabel constraints
+        // не нужно, так как размеры задаются динамически
+        
+        // moreTextButton constraints
+        // не нужно, так как размеры задаются динамически
+        
+        // postImageView constraints
+        // не нужно, так как размеры задаются динамически
+        
+        // bottomView constraints
+        // не нужно, так как размеры задаются динамически
     }
     
     //    Накладываем первый слой
@@ -340,7 +379,7 @@ class NewsfeedCodeCell: UITableViewCell {
         //        Добавляем backView на экран
         addSubview(backView)
         
-        // BackView constraints (расположение уже указано в файле NewsfeedLayoutCalculator -> Constants )
+        // BackView constraints (расположение указано в файле NewsfeedLayoutCalculator -> Constants)
         backView.fillSuperview(padding: Constants.backInsets)
     }
     

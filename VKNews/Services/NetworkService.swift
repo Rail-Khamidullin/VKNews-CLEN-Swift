@@ -10,6 +10,7 @@ import Foundation
 
 //   Получение данных из интернета
 protocol Networking {
+    //    Получение данных
     func request(path: String, params: [String : String], completion: @escaping (Data?, Error?) ->())
 }
 

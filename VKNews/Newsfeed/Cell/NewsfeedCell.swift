@@ -44,6 +44,8 @@ protocol FeedCellSizes {
     var buttonViewFrame: CGRect { get }
     //    Высота всей ячейки
     var totalHeight: CGFloat { get }
+//    Кнопка при большом кол-во текста в посте
+    var moreTextButtonFrame: CGRect { get }
 }
 
 //   Наша ячейка в таблице
