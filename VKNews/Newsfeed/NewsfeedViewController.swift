@@ -54,7 +54,7 @@ class NewsfeedViewController: UIViewController, NewsfeedDisplayLogic, NewsFeedCo
         //        Регистрируем новуу ячейку, где будем создавать отображение объектов программно
         tableView.register(NewsfeedCodeCell.self, forCellReuseIdentifier: NewsfeedCodeCell.reuseId)
         //    Отправляем запрос на получение данных для отображеия в новостной ленте (отправляемся в интерактор)
-        interactor?.makeRequest(request: .getNewsFeed)
+        interactor?.makeRequest(request: Newsfeed.Model.Request.RequestType.getNewsFeed)
     }
     
     //  С помощью полученных и обработанных данных displayData вносит изменения в пользовательский интерфейс
@@ -72,6 +72,12 @@ class NewsfeedViewController: UIViewController, NewsfeedDisplayLogic, NewsFeedCo
     // MARK: - реализуем функцию протокола NewsFeedCodeDelegate
     
     func revealPost(for cell: NewsfeedCodeCell) {
+        //        Какая по счёту ячейка, текст которой нужно раскрыть
+        guard let indexPath = tableView.indexPath(for: cell) else { return }
+        //        Достаём ячейку с массивом данных
+        let cellViewModel = feedViewModel.cells[indexPath.row]
+        //        Отправляем запрос на получение postId в интереактор
+        interactor?.makeRequest(request: .revealPostIds(postId: cellViewModel.postId))
     }
 }
 
@@ -106,4 +112,10 @@ extension NewsfeedViewController: UITableViewDelegate, UITableViewDataSource {
         let cellViewModel = feedViewModel.cells[indexPath.row]
         return cellViewModel.sizes.totalHeight
     }
+    //    При нажатии на moreTextButton пост с текстом будет увеличен и изменятся размеры ячейки. Данный метод автоматически высчитывает размеры ячейки таблицы.
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        let cellViewModel = feedViewModel.cells[indexPath.row]
+        return cellViewModel.sizes.totalHeight
+    }
 }
+ 

@@ -32,12 +32,12 @@ class NewsfeedPresenter: NewsfeedPresentationLogic {
         //  Посколько мы из Интректора вызвали request.getNewsFeed попадаем сюда, то
         switch response {
         //        Данные которые получили и обработали (свернули в модель для отображения нужного нам формата) передаём в файл viewController
-        case .presentNewsfeed(feed: let feed):
-            
+        case .presentNewsfeed(feed: let feed, let reveledpostIds):
+                        
             //        Полученные данные из сети вставляем в наш конвертер
             let cells = feed.items.map { (feedItem) in
-                cellViewModel(from: feedItem, profiles: feed.profiles, groups: feed.groups)
-            } 
+                cellViewModel(from: feedItem, profiles: feed.profiles, groups: feed.groups, revealedpostIds: reveledpostIds)
+            }
             //        Вставляем в структуру данных ячейки сконвертируемый формат полученных данных из сети
             let feedViewModel = FeedViewModel.init(cells: cells)
             //        Передаём в отображение нашу модель
@@ -46,7 +46,7 @@ class NewsfeedPresenter: NewsfeedPresentationLogic {
     }
     
     //        Конвертируем формат FeedResponse.items в формат FeedCellViewModel.cells
-    private func cellViewModel( from feedItem: FeedItem, profiles: [Profile], groups: [Group]) -> FeedViewModel.Cell {
+    private func cellViewModel(from feedItem: FeedItem, profiles: [Profile], groups: [Group], revealedpostIds: [Int]) -> FeedViewModel.Cell {
         
         let profiles = self.profile(for: feedItem.sourceId, profile: profiles, groups: groups)
         //        Достаём формат даты 1970 года для нешего feedItem.date
@@ -55,10 +55,15 @@ class NewsfeedPresenter: NewsfeedPresentationLogic {
         let dateTitle = dateFormatter.string(from: date)
         //        Достаём наш пост
         let photoAttachment = self.photoAttachment(feedItem: feedItem)
+        //        Пробегаемся по массиву reveledpostIds и если какой-нибудь postId совпал с конкретной ячейкой
+        let isFullSized = revealedpostIds.contains { (postId) -> Bool in
+            return postId == feedItem.postId
+        }
         
-        let sizes = cellLayoutCalculator.sizes(postText: feedItem.text, attachmentPhoto: photoAttachment)
+        let sizes = cellLayoutCalculator.sizes(postText: feedItem.text, attachmentPhoto: photoAttachment, isFullSizedPost: isFullSized)
         //        Возвращаем нашу структуру с данными для ячейки
-        return FeedViewModel.Cell.init(iconUrlString: profiles.photo,
+        return FeedViewModel.Cell.init(postId: feedItem.postId,
+                                       iconUrlString: profiles.photo,
                                        name: profiles.name,
                                        date: dateTitle,
                                        text: feedItem.text,

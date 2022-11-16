@@ -14,7 +14,7 @@ struct Sizes: FeedCellSizes {
     
     //    Текствое поле
     var postLabelFrame: CGRect
-    
+    //    Размер кнопки
     var moreTextButtonFrame: CGRect
     //    Изображение
     var attacmentFrame: CGRect
@@ -26,7 +26,7 @@ struct Sizes: FeedCellSizes {
 
 //   Создаём протокол, который будет хранить в себе метод определения размеров текста и изображения
 protocol FeedCellLayoutCalculatorProtocol {
-    func sizes(postText: String?, attachmentPhoto: FeedCellPhotoAttachmentViewModel?) -> FeedCellSizes
+    func sizes(postText: String?, attachmentPhoto: FeedCellPhotoAttachmentViewModel?, isFullSizedPost: Bool) -> FeedCellSizes
 }
 
 //   Логика определения размеров
@@ -41,7 +41,7 @@ final class FeedCellLayoutCalculator: FeedCellLayoutCalculatorProtocol {
     }
     
     //    Определение динамических размеров объектов
-    func sizes(postText: String?, attachmentPhoto: FeedCellPhotoAttachmentViewModel?) -> FeedCellSizes {
+    func sizes(postText: String?, attachmentPhoto: FeedCellPhotoAttachmentViewModel?, isFullSizedPost: Bool) -> FeedCellSizes {
         
         //        Флажок, определяющий показывать кнопку для большого текста или нет
         var showMoreTextButton = false
@@ -62,8 +62,9 @@ final class FeedCellLayoutCalculator: FeedCellLayoutCalculatorProtocol {
             var height = text.height(width: width, font: Constants.postLabelFont)
             //            Создаём максимальное кол-во строк для отображения без кнопки
             let limitHeight = Constants.postLabelFont.lineHeight * Constants.minifiedPostLimitLines
-            
-            if height > limitHeight {
+            //            Если на кнопку moreTextButton не нажали и текст меньше нашей константы, то
+            if !isFullSizedPost && height > limitHeight {
+                //                высота поста составляет
                 height = Constants.minifiedPostLines * Constants.postLabelFont.lineHeight
                 showMoreTextButton = true
             }
@@ -108,8 +109,6 @@ final class FeedCellLayoutCalculator: FeedCellLayoutCalculatorProtocol {
         
         // MARK: - Работа с buttonViewFrame
         
-        //        Координата X
-        let buttonX = CGFloat(8)
         //        Первый варинат поиска координаты Y
         //        let buttonY = (attachmentTop + attachmentFrame.size.height + 7 + 3)
         //        Второй вариант поиска координаты Y

@@ -15,8 +15,14 @@ protocol NewsfeedBusinessLogic {
 //   Зддесь проходят сетевые запросы, обращение к базам данных
 class NewsfeedInteractor: NewsfeedBusinessLogic {
     
+    //    Объект протокола NewsfeedPresentationLogic для получения данных из NewsfeedPresenter
     var presenter: NewsfeedPresentationLogic?
+    //    Объект с запросом данных
     var service: NewsfeedService?
+    //    Массив с постами Айди (в случае если потребуется несколько значений)
+    var reveledPostIds = [Int]()
+    //    feedResponse будет принимать полученные данные из сети
+    var feedResponse: FeedResponse?
     //    Достаём экземпляр структуры с сетевым запрсом
     private var dataFetcher: DataFetcher = NetworkDataFetcher(networking: NetworkService())
     
@@ -30,12 +36,24 @@ class NewsfeedInteractor: NewsfeedBusinessLogic {
         //        Метод getNewsFeed показывает нам все данные, которые приходят из интернета в нужном нам формате, ассоциативное значение (FeedResponse)
         case .getNewsFeed:
             dataFetcher.getFeed { [weak self] (feedResponse) in
+                //                Передаём полученные данные в наше св-во feedResponse
+                self?.feedResponse = feedResponse
                 
-                //                Проверяем на наличие данных
-                guard let feedResponse = feedResponse else { return }
-                //                Передаём полученны данные в презентер
-                self?.presenter?.presentData(response: Newsfeed.Model.Response.ResponseType.presentNewsfeed(feed: feedResponse))
+                self? .presentFeed()
             }
+        case .revealPostIds(postId: let postId):
+            //            Передаём наш пост айди в массив
+            reveledPostIds.append(postId)
+            
+            presentFeed()
         }
+    }
+    
+    //    Метод, который проверяет на nil и передаёт данные в презентер
+    private func presentFeed() {
+        //                Проверяем на наличие данных
+        guard let feedResponse = feedResponse else { return }
+        //            Передаём полученны данные в презентер
+        presenter?.presentData(response: Newsfeed.Model.Response.ResponseType.presentNewsfeed(feed: feedResponse, reveledpostIds: reveledPostIds))
     }
 }

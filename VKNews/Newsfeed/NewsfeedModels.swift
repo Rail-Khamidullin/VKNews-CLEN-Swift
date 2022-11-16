@@ -16,12 +16,14 @@ enum Newsfeed {
             enum RequestType {
                 //        Получение новостных данных
                 case getNewsFeed
+                //        Кейс с получением идентификатора поста из таблицы по indexPath
+                case revealPostIds(postId: Int)
             }
         }
         struct Response {
             enum ResponseType {
-                //        Кейс с ассоциативным значением FeedResponse
-                case presentNewsfeed(feed: FeedResponse)
+                //        Кейс с ассоциативным значением FeedResponse и массивом id нажатых на кнопку ячеек
+                case presentNewsfeed(feed: FeedResponse, reveledpostIds: [Int])
             }
         }
         struct ViewModel {
@@ -37,6 +39,8 @@ enum Newsfeed {
 struct FeedViewModel {
     //    Подписываем под протокол и реализуем его св-ва
     struct Cell: FeedCellViewModel {
+        //        Айди нашего поста
+        var postId: Int
         //        Иконка url страницы откуда пришёл пост
         var iconUrlString: String
         //        Имя поста

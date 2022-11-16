@@ -127,18 +127,21 @@ class NewsfeedCodeCell: UITableViewCell {
         imageView.image = UIImage(named: "like")
         return imageView
     }()
+    //    Иконка комментарии
     let commentsImage: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = UIImage(named: "comment")
         return imageView
     }()
+    //    Иконка репостов
     let sharesImage: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = UIImage(named: "share")
         return imageView
     }()
+    //    Иконка просмотров
     let viewsImage: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -155,6 +158,7 @@ class NewsfeedCodeCell: UITableViewCell {
         label.lineBreakMode = .byClipping
         return label
     }()
+    //    Лейбл с кол-ом комментарий
     let commentsLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -164,6 +168,7 @@ class NewsfeedCodeCell: UITableViewCell {
         label.lineBreakMode = .byClipping
         return label
     }()
+    //    Лейбл с кол-ом репостов
     let sharesLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -173,6 +178,7 @@ class NewsfeedCodeCell: UITableViewCell {
         label.lineBreakMode = .byClipping
         return label
     }()
+    //    Лейбл с кол-ом просмотров
     let viewsLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -210,10 +216,9 @@ class NewsfeedCodeCell: UITableViewCell {
         overlayThirdLayerOnTopView()   // Третий слой на topView
         overlayThirdLayerOnBottomView()   // Третий слой на bottomView
         overlayFourthLayerOnBottomViewViews()   // Четвёртый слой на ячейках BottomView
-        
-        contentView.isUserInteractionEnabled = true
     }
     
+//    По нажатию на кнопку делегируем выполнение метода в NewsfeedViewController
     @objc private func moreTextButtonTouch() {
         delegate?.revealPost(for: self)
     }
