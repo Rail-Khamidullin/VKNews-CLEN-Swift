@@ -53,14 +53,14 @@ class NewsfeedPresenter: NewsfeedPresentationLogic {
         let date = Date(timeIntervalSince1970: feedItem.date)
         //        Записываем нашу дату настроенной в DateFormatter
         let dateTitle = dateFormatter.string(from: date)
-        //        Достаём наш пост
-        let photoAttachment = self.photoAttachment(feedItem: feedItem)
+        //        Достаём наши фото
+        let photoAttachments = self.photoAttachments(feedItem: feedItem)
         //        Пробегаемся по массиву reveledpostIds и если какой-нибудь postId совпал с конкретной ячейкой
         let isFullSized = revealedpostIds.contains { (postId) -> Bool in
             return postId == feedItem.postId
         }
         
-        let sizes = cellLayoutCalculator.sizes(postText: feedItem.text, attachmentPhoto: photoAttachment, isFullSizedPost: isFullSized)
+        let sizes = cellLayoutCalculator.sizes(postText: feedItem.text, attachmentsPhoto: photoAttachments, isFullSizedPost: isFullSized)
         //        Возвращаем нашу структуру с данными для ячейки
         return FeedViewModel.Cell.init(postId: feedItem.postId,
                                        iconUrlString: profiles.photo,
@@ -71,7 +71,7 @@ class NewsfeedPresenter: NewsfeedPresentationLogic {
                                        comments: String(feedItem.comments?.count ?? 0),
                                        shares: String(feedItem.reposts?.count ?? 0),
                                        views: String(feedItem.views?.count ?? 0),
-                                       photoAttachment: photoAttachment,
+                                       photoAttachments: photoAttachments,
                                        sizes: sizes)
     }
     
@@ -103,5 +103,19 @@ class NewsfeedPresenter: NewsfeedPresentationLogic {
         return FeedViewModel.FeedCellPhotoAttachment.init(photoUrlString: firstPhoto.srcBIG,
                                                           width: firstPhoto.width,
                                                           height: firstPhoto.height)
+    }
+    
+    private func photoAttachments(feedItem: FeedItem) -> [FeedViewModel.FeedCellPhotoAttachment] {
+//        Проверяем наличие фотографий
+        guard let attachments = feedItem.attachments else { return [] }
+        
+        return attachments.compactMap { (attachment) -> FeedViewModel.FeedCellPhotoAttachment? in
+//            Если фото имеется, то получаем его
+            guard let photo = attachment.photo else { return nil }
+//            Добавляем данные наших фото в модель
+            return FeedViewModel.FeedCellPhotoAttachment.init(photoUrlString: photo.srcBIG,
+                                                              width: photo.width,
+                                                              height: photo.height)
+        }
     }
 }

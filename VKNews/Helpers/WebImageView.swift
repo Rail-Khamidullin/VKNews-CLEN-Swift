@@ -12,7 +12,7 @@ import UIKit
 //   Класс, который загружает с сервера изображения и отправляет их в кеш для дальнейшего переиспользования в иконках
 class WebImageView: UIImageView {
     
-    //    Метод для получения иконки профиля человека или группы из сети
+    //    Метод для получения иконки профиля человека или группы из сети по url адресу
     func set(imageUrl: String? ) {
         //        Проверям url адресс
         guard let imageUrl = imageUrl, let url = URL(string: imageUrl) else {
@@ -44,7 +44,7 @@ class WebImageView: UIImageView {
         dataTask.resume()
     }
     
-    //    Метод обработки загруженных изображений
+    //    Метод обработки загруженных изображений с целью передачив кеш
     private func handleloadedImage(data: Data, response: URLResponse) {
         //        Можем ли достать url от нашего response
         guard let responseURL = response.url else { return }

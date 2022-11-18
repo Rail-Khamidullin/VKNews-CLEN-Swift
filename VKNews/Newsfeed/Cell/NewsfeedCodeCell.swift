@@ -59,6 +59,8 @@ class NewsfeedCodeCell: UITableViewCell {
         button.setTitle("Показать полностью...", for: .normal)
         return button
     }()
+//    Создаём объект GalleryCollectionView
+    let galleryCollectionView = GalleryCollectionView()
     //    Изображения с поста
     let postImageView: WebImageView = {
         let imageView = WebImageView()
@@ -236,20 +238,36 @@ class NewsfeedCodeCell: UITableViewCell {
         viewsLabel.text = viewModel.views
         //        Присваиваем размеры postLabel, postImageView, bottomView
         postLabel.frame = viewModel.sizes.postLabelFrame
-        postImageView.frame = viewModel.sizes.attacmentFrame
         bottomView.frame = viewModel.sizes.buttonViewFrame
         moreTextButton.frame = viewModel.sizes.moreTextButtonFrame
         
+        
         //        Проверяем наличие фото
-        if let photoAttachment = viewModel.photoAttachment {
+        if let photoAttachment = viewModel.photoAttachments.first, viewModel.photoAttachments.count == 1 {
             //            Если фото имеется, то отображаем его на экране
             postImageView.set(imageUrl: photoAttachment.photoUrlString)
             //            И отображаем postImageView
             postImageView.isHidden = false
-        } else {
-            //        Если изображения нет, то postImageView скрываем
+//            Скрываем нашу коллекцию
+            galleryCollectionView.isHidden = true
+//            Передаём размеры фото в postImageView
+            postImageView.frame = viewModel.sizes.attacmentFrame
+//            Если мы получаем несколько изображений, то устанавливаем размеры для galleryCollectionView
+        } else if viewModel.photoAttachments.count > 1 {
+            galleryCollectionView.frame = viewModel.sizes.attacmentFrame
+//            Скрываем postImageView
             postImageView.isHidden = true
+//            Открываем galleryCollectionView
+            galleryCollectionView.isHidden = false
+//            Передаём фото в GalleryCollectionView -> photos
+            galleryCollectionView.set(photos: viewModel.photoAttachments)
         }
+        else {
+            //        Если изображения нет, то postImageView и galleryCollectionView скрываем
+            postImageView.isHidden = true
+            galleryCollectionView.isHidden = true
+        }
+        
     }
     
     //    Накладываем четвёртый слой на ячейки BottomView
@@ -357,6 +375,7 @@ class NewsfeedCodeCell: UITableViewCell {
         backView.addSubview(postLabel)
         backView.addSubview(moreTextButton)
         backView.addSubview(postImageView)
+        backView.addSubview(galleryCollectionView)
         backView.addSubview(bottomView)
         
         ///   Прописываем констрейнты второго слоя__________

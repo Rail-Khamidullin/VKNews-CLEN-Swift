@@ -41,6 +41,7 @@ struct FeedViewModel {
     struct Cell: FeedCellViewModel {
         //        Айди нашего поста
         var postId: Int
+        
         //        Иконка url страницы откуда пришёл пост
         var iconUrlString: String
         //        Имя поста
@@ -58,7 +59,7 @@ struct FeedViewModel {
         //        Кол-во просмотров
         var views: String?
         //        Изображение поста
-        var photoAttachment: FeedCellPhotoAttachmentViewModel?
+        var photoAttachments: [FeedCellPhotoAttachmentViewModel]
         //        Размеры объектов text и photoAttachment
         var sizes: FeedCellSizes
     }

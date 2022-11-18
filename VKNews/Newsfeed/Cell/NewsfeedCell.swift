@@ -19,7 +19,7 @@ protocol FeedCellViewModel {
     var comments: String? { get }
     var shares: String? { get }
     var views: String? { get }
-    var photoAttachment: FeedCellPhotoAttachmentViewModel? { get }
+    var photoAttachments: [FeedCellPhotoAttachmentViewModel] { get }
     //    Содержит размеры изменяющихся объектов
     var sizes: FeedCellSizes { get }
 }
@@ -100,9 +100,9 @@ class NewsfeedCell: UITableViewCell {
         //            Убираем заливку и выделение ячейки при нажатии
         backgroundColor = .clear
         selectionStyle = .none
-        
     }
     
+    /*
     //    Передаём нашим элементам данные
     func set(viewModel: FeedCellViewModel) {
         iconImageView.set(imageUrl: viewModel.iconUrlString)
@@ -129,5 +129,6 @@ class NewsfeedCell: UITableViewCell {
             postImageView.isHidden = true
         }
     }
+ */
 }
 

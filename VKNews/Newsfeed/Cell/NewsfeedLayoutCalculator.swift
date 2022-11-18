@@ -26,7 +26,7 @@ struct Sizes: FeedCellSizes {
 
 //   Создаём протокол, который будет хранить в себе метод определения размеров текста и изображения
 protocol FeedCellLayoutCalculatorProtocol {
-    func sizes(postText: String?, attachmentPhoto: FeedCellPhotoAttachmentViewModel?, isFullSizedPost: Bool) -> FeedCellSizes
+    func sizes(postText: String?, attachmentsPhoto: [FeedCellPhotoAttachmentViewModel], isFullSizedPost: Bool) -> FeedCellSizes
 }
 
 //   Логика определения размеров
@@ -41,7 +41,7 @@ final class FeedCellLayoutCalculator: FeedCellLayoutCalculatorProtocol {
     }
     
     //    Определение динамических размеров объектов
-    func sizes(postText: String?, attachmentPhoto: FeedCellPhotoAttachmentViewModel?, isFullSizedPost: Bool) -> FeedCellSizes {
+    func sizes(postText: String?, attachmentsPhoto: [FeedCellPhotoAttachmentViewModel], isFullSizedPost: Bool) -> FeedCellSizes {
         
         //        Флажок, определяющий показывать кнопку для большого текста или нет
         var showMoreTextButton = false
@@ -95,16 +95,35 @@ final class FeedCellLayoutCalculator: FeedCellLayoutCalculatorProtocol {
         //        let photoY = (8 + Constants.topViewHight + 8 + postlabelFrame.size.height + 8)
         //        Устанавливаем расположение и размеры изображения
         var attachmentFrame = CGRect(origin: CGPoint(x: 0, y: attachmentTop), size: CGSize.zero)
+        //        //        Если фото есть
+        //        if let photoAttachment = attachmentPhoto {
+        //            //            Ширина изображения
+        //            let photoWidth: Float = Float(photoAttachment.width)
+        //            //            Высота изображения
+        //            let photoHeight: Float = Float(photoAttachment.height)
+        //            //            Соотношение высоты к ширине
+        //            let ratio = CGFloat(photoHeight / photoWidth)
+//                    //            Добавдяем размеры
+//                    attachmentFrame.size = CGSize(width: backViewWith, height: backViewWith * ratio)
+        //        }
         //        Если фото есть
-        if let photoAttachment = attachmentPhoto {
+        if let photoAttachments = attachmentsPhoto.first {
             //            Ширина изображения
-            let photoWidth: Float = Float(photoAttachment.width)
+            let photoWidth: Float = Float(photoAttachments.width)
             //            Высота изображения
-            let photoHeight: Float = Float(photoAttachment.height)
+            let photoHeight: Float = Float(photoAttachments.height)
             //            Соотношение высоты к ширине
             let ratio = CGFloat(photoHeight / photoWidth)
-            //            Добавдяем размеры
-            attachmentFrame.size = CGSize(width: backViewWith, height: backViewWith * ratio)
+            
+            if attachmentsPhoto.count == 1 {
+                //            Добавдяем размеры
+                attachmentFrame.size = CGSize(width: backViewWith, height: backViewWith * ratio)
+            } else if attachmentsPhoto.count > 1 {
+                //            Добавдяем размеры
+                attachmentFrame.size = CGSize(width: backViewWith, height: backViewWith * ratio)
+                
+                print("More then 1 photo")
+            }
         }
         
         // MARK: - Работа с buttonViewFrame
