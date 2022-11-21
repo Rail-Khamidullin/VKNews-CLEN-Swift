@@ -88,24 +88,11 @@ final class FeedCellLayoutCalculator: FeedCellLayoutCalculatorProtocol {
         
         // MARK: - работа с attachmentPhoto Frame
         
-        //        Первый поиск координаты y. Если пост с текстом отсутсвует, то y будет равен сумме максимальной выосты лейбла с постом + констрейнт от поста с текстом до изображения новости
+        //        Поиск координаты y. Если пост с текстом отсутсвует, то y будет равен сумме максимальной выосты лейбла с постом + констрейнт от поста с текстом до изображения новости
         let attachmentTop = postlabelFrame.size == CGSize.zero ? Constants.postLabelInsets.top : moreTextButtonFrame.maxY + Constants.postLabelInsets.bottom
         
-        //        Второй вариант поиска координаты y
-        //        let photoY = (8 + Constants.topViewHight + 8 + postlabelFrame.size.height + 8)
         //        Устанавливаем расположение и размеры изображения
         var attachmentFrame = CGRect(origin: CGPoint(x: 0, y: attachmentTop), size: CGSize.zero)
-        //        //        Если фото есть
-        //        if let photoAttachment = attachmentPhoto {
-        //            //            Ширина изображения
-        //            let photoWidth: Float = Float(photoAttachment.width)
-        //            //            Высота изображения
-        //            let photoHeight: Float = Float(photoAttachment.height)
-        //            //            Соотношение высоты к ширине
-        //            let ratio = CGFloat(photoHeight / photoWidth)
-//                    //            Добавдяем размеры
-//                    attachmentFrame.size = CGSize(width: backViewWith, height: backViewWith * ratio)
-        //        }
         //        Если фото есть
         if let photoAttachments = attachmentsPhoto.first {
             //            Ширина изображения
@@ -114,15 +101,21 @@ final class FeedCellLayoutCalculator: FeedCellLayoutCalculatorProtocol {
             let photoHeight: Float = Float(photoAttachments.height)
             //            Соотношение высоты к ширине
             let ratio = CGFloat(photoHeight / photoWidth)
-            
+//            Если изображение 1
             if attachmentsPhoto.count == 1 {
                 //            Добавдяем размеры
                 attachmentFrame.size = CGSize(width: backViewWith, height: backViewWith * ratio)
+//                Если изображений несколько
             } else if attachmentsPhoto.count > 1 {
-                //            Добавдяем размеры
-                attachmentFrame.size = CGSize(width: backViewWith, height: backViewWith * ratio)
-                
-                print("More then 1 photo")
+                //            Создаём массив с размерами фото
+                var photos = [CGSize]()
+                for photo in attachmentsPhoto {
+                    let photoSize = CGSize(width: CGFloat(photo.width), height: CGFloat(photo.height))
+                    photos.append(photoSize)
+                }
+                //                Высота строки
+                let rowHeight = RowLayout.rowHeightCounter(superviewWidth: backViewWith, photosArray: photos)
+                attachmentFrame.size = CGSize(width: backViewWith, height: rowHeight!)
             }
         }
         
@@ -138,9 +131,10 @@ final class FeedCellLayoutCalculator: FeedCellLayoutCalculatorProtocol {
         
         // MARK: - работа над общей высотой ячейки
         
+        //        Общая высота ячейки складывается из максимальной координаты Y плюс расстояние от кнопки до BackView
         let cellHeight = buttonViewFrame.maxY + Constants.backInsets.bottom
         
-        //        Временные размеры
+        //        Размеры
         return Sizes(postLabelFrame: postlabelFrame,
                      moreTextButtonFrame: moreTextButtonFrame,
                      attacmentFrame: attachmentFrame,

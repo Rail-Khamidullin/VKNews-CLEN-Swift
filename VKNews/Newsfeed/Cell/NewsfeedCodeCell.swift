@@ -59,7 +59,7 @@ class NewsfeedCodeCell: UITableViewCell {
         button.setTitle("Показать полностью...", for: .normal)
         return button
     }()
-//    Создаём объект GalleryCollectionView
+    //    Создаём объект GalleryCollectionView
     let galleryCollectionView = GalleryCollectionView()
     //    Изображения с поста
     let postImageView: WebImageView = {
@@ -220,7 +220,7 @@ class NewsfeedCodeCell: UITableViewCell {
         overlayFourthLayerOnBottomViewViews()   // Четвёртый слой на ячейках BottomView
     }
     
-//    По нажатию на кнопку делегируем выполнение метода в NewsfeedViewController
+    //    По нажатию на кнопку делегируем выполнение метода в NewsfeedViewController
     @objc private func moreTextButtonTouch() {
         delegate?.revealPost(for: self)
     }
@@ -248,18 +248,18 @@ class NewsfeedCodeCell: UITableViewCell {
             postImageView.set(imageUrl: photoAttachment.photoUrlString)
             //            И отображаем postImageView
             postImageView.isHidden = false
-//            Скрываем нашу коллекцию
+            //            Скрываем нашу коллекцию
             galleryCollectionView.isHidden = true
-//            Передаём размеры фото в postImageView
+            //            Передаём размеры фото в postImageView
             postImageView.frame = viewModel.sizes.attacmentFrame
-//            Если мы получаем несколько изображений, то устанавливаем размеры для galleryCollectionView
+            //            Если мы получаем несколько изображений, то устанавливаем размеры для galleryCollectionView
         } else if viewModel.photoAttachments.count > 1 {
             galleryCollectionView.frame = viewModel.sizes.attacmentFrame
-//            Скрываем postImageView
+            //            Скрываем postImageView
             postImageView.isHidden = true
-//            Открываем galleryCollectionView
+            //            Открываем galleryCollectionView
             galleryCollectionView.isHidden = false
-//            Передаём фото в GalleryCollectionView -> photos
+            //            Передаём фото в GalleryCollectionView -> photos
             galleryCollectionView.set(photos: viewModel.photoAttachments)
         }
         else {

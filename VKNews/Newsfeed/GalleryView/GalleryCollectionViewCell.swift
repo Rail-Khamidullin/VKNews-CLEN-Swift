@@ -19,17 +19,15 @@ class GalleryCollectionViewCell: UICollectionViewCell {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         //        Натуральное соотношение сторон изображения
         imageView.contentMode = .scaleAspectFit
-        imageView.backgroundColor = #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
+        imageView.backgroundColor = #colorLiteral(red: 0.8901960784, green: 0.8980392157, blue: 0.9098039216, alpha: 1)
         return imageView
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
         
         //        Добавляем myImageView в ячейку
         addSubview(myImageView)
-        
         //        Добавляем констрейнты для myImageView (будет заполнять всё пространство ячейки)
         myImageView.fillSuperview()
     }
@@ -43,7 +41,17 @@ class GalleryCollectionViewCell: UICollectionViewCell {
     func set(imageUrl: String?) {
         myImageView.set(imageUrl: imageUrl)
     }
-    
+    //    Все кооректировки интерфейса желательно делать в данном методе
+    override func layoutSubviews() {
+        
+        myImageView.layer.masksToBounds = true
+        //        Скругление углов изображения
+        myImageView.layer.cornerRadius = 10
+        //        Добавляем тени
+        self.layer.shadowRadius = 3
+        layer.shadowOpacity = 0.4
+        layer.shadowOffset = CGSize(width: 2.5, height: 4)
+    }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

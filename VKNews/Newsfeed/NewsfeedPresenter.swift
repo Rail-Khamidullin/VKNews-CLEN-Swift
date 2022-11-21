@@ -32,11 +32,11 @@ class NewsfeedPresenter: NewsfeedPresentationLogic {
         //  Посколько мы из Интректора вызвали request.getNewsFeed попадаем сюда, то
         switch response {
         //        Данные которые получили и обработали (свернули в модель для отображения нужного нам формата) передаём в файл viewController
-        case .presentNewsfeed(feed: let feed, let reveledpostIds):
+        case .presentNewsfeed(feed: let feed, let reveledPostIds):
                         
             //        Полученные данные из сети вставляем в наш конвертер
             let cells = feed.items.map { (feedItem) in
-                cellViewModel(from: feedItem, profiles: feed.profiles, groups: feed.groups, revealedpostIds: reveledpostIds)
+                cellViewModel(from: feedItem, profiles: feed.profiles, groups: feed.groups, revealedPostIds: reveledPostIds)
             }
             //        Вставляем в структуру данных ячейки сконвертируемый формат полученных данных из сети
             let feedViewModel = FeedViewModel.init(cells: cells)
@@ -46,7 +46,7 @@ class NewsfeedPresenter: NewsfeedPresentationLogic {
     }
     
     //        Конвертируем формат FeedResponse.items в формат FeedCellViewModel.cells
-    private func cellViewModel(from feedItem: FeedItem, profiles: [Profile], groups: [Group], revealedpostIds: [Int]) -> FeedViewModel.Cell {
+    private func cellViewModel(from feedItem: FeedItem, profiles: [Profile], groups: [Group], revealedPostIds: [Int]) -> FeedViewModel.Cell {
         
         let profiles = self.profile(for: feedItem.sourceId, profile: profiles, groups: groups)
         //        Достаём формат даты 1970 года для нешего feedItem.date
@@ -56,7 +56,7 @@ class NewsfeedPresenter: NewsfeedPresentationLogic {
         //        Достаём наши фото
         let photoAttachments = self.photoAttachments(feedItem: feedItem)
         //        Пробегаемся по массиву reveledpostIds и если какой-нибудь postId совпал с конкретной ячейкой
-        let isFullSized = revealedpostIds.contains { (postId) -> Bool in
+        let isFullSized = revealedPostIds.contains { (postId) -> Bool in
             return postId == feedItem.postId
         }
         
