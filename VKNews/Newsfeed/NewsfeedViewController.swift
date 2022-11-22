@@ -23,6 +23,15 @@ class NewsfeedViewController: UIViewController, NewsfeedDisplayLogic, NewsFeedCo
     @IBOutlet weak var tableView: UITableView!
     //    Экземпляр класса TitleView
     private let titleView = TitleView()
+    //    Активити индикатор для tableView
+    private var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        //        Добавляем ему действие
+        refreshControl.addTarget(self,
+                                 action: #selector(refresh),
+                                 for: .valueChanged)
+        return refreshControl
+    }()
     
     // MARK: Setup (конфигурация модуля )
     
@@ -47,16 +56,10 @@ class NewsfeedViewController: UIViewController, NewsfeedDisplayLogic, NewsFeedCo
         setup()
         //        Вызываем метод настройки навигейшн бара
         setupTopBar()
-        //        Убираем разделитель между ячейками
-        tableView.separatorStyle = .none
-        //        Убираем заливку таблицы
-        tableView.backgroundColor = .clear
+        setupTable()
         //        Меняем цвет родительского view
         view.backgroundColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
-        //    Регистрируем нашу ячейку NewsfeedCell
-        tableView.register(UINib(nibName: "NewsfeedCell", bundle: nil), forCellReuseIdentifier: NewsfeedCell.reuseId)
-        //        Регистрируем новуу ячейку, где будем создавать отображение объектов программно
-        tableView.register(NewsfeedCodeCell.self, forCellReuseIdentifier: NewsfeedCodeCell.reuseId)
+        
         //    Отправляем запрос на получение данных для отображеия в новостной ленте (отправляемся в интерактор)
         interactor?.makeRequest(request: Newsfeed.Model.Request.RequestType.getNewsFeed)
         //        Отправляем запрос на получение данных для отображения фото профиля в навигейшн баре (отправляемся в интерактор)
@@ -72,6 +75,29 @@ class NewsfeedViewController: UIViewController, NewsfeedDisplayLogic, NewsFeedCo
         self.navigationItem.titleView = titleView
     }
     
+    private func setupTable() {
+        //        Расстояние сверху
+        let topInset: CGFloat = 8
+        //        Добавим данное расстояние от таблицы до навигейшн бара
+        tableView.contentInset.top = topInset
+        //        Убираем разделитель между ячейками
+        tableView.separatorStyle = .none
+        //        Убираем заливку таблицы
+        tableView.backgroundColor = .clear
+        
+        //    Регистрируем нашу ячейку NewsfeedCell
+        tableView.register(UINib(nibName: "NewsfeedCell", bundle: nil), forCellReuseIdentifier: NewsfeedCell.reuseId)
+        //        Регистрируем новуу ячейку, где будем создавать отображение объектов программно
+        tableView.register(NewsfeedCodeCell.self, forCellReuseIdentifier: NewsfeedCodeCell.reuseId)
+        //        Добавляем refreshControl
+        tableView.addSubview(refreshControl)
+    }
+    
+    //    Действие на момент запуска индикатора
+    @objc private func refresh() {
+        interactor?.makeRequest(request: Newsfeed.Model.Request.RequestType.getNewsFeed)
+    }
+    
     //  С помощью полученных и обработанных данных displayData вносит изменения в пользовательский интерфейс
     func displayData(viewModel: Newsfeed.Model.ViewModel.ViewModelData) {
         switch viewModel {
@@ -81,6 +107,9 @@ class NewsfeedViewController: UIViewController, NewsfeedDisplayLogic, NewsFeedCo
             self.feedViewModel = feedViewModel
             //            Обновляем нашу таблицу
             tableView.reloadData()
+            //            Останавливаем работу контрола после загрузки
+            refreshControl.endRefreshing()
+            
         case .displayUser(userViewModel: let userViewModel):
             titleView.set(userViewModel: userViewModel)
         }

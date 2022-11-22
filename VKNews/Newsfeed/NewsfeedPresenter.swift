@@ -66,18 +66,39 @@ class NewsfeedPresenter: NewsfeedPresentationLogic {
         }
         
         let sizes = cellLayoutCalculator.sizes(postText: feedItem.text, attachmentsPhoto: photoAttachments, isFullSizedPost: isFullSized)
+        //        При появлении в тексте знаков <br>, будут заменяться на \n (пробел)
+        let postText = feedItem.text?.replacingOccurrences(of: "<br>", with: "\n")
         //        Возвращаем нашу структуру с данными для ячейки
         return FeedViewModel.Cell.init(postId: feedItem.postId,
                                        iconUrlString: profiles.photo,
                                        name: profiles.name,
                                        date: dateTitle,
-                                       text: feedItem.text,
-                                       likes: String(feedItem.likes?.count ?? 0),
-                                       comments: String(feedItem.comments?.count ?? 0),
-                                       shares: String(feedItem.reposts?.count ?? 0),
-                                       views: String(feedItem.views?.count ?? 0),
+                                       text: postText,
+                                       likes: formattedCounter(feedItem.likes?.count),
+                                       comments: formattedCounter(feedItem.comments?.count),
+                                       shares: formattedCounter(feedItem.reposts?.count),
+                                       views: formattedCounter(feedItem.views?.count),
                                        photoAttachments: photoAttachments,
                                        sizes: sizes)
+    }
+    
+    //    Форматируем отображение кол-ва лайков, просмотров и др. для удобочитаемого вида
+    private func formattedCounter( _ counter: Int?) -> String? {
+        //        Проверяем наличие числа
+        guard let counter = counter, counter > 0 else { return nil }
+        //        Кастим Int в String
+        var counterString = String(counter)
+        //        Если от 4 до 6 символов в кол-ве просмотров, лайков и т.д.
+        if 4...6 ~= counterString.count {
+            //            То отбрасывается 3 последние числа и добавляем символ К (тысяча)
+            counterString = String(counterString.dropLast(3)) + "K"
+            //            Если больше 6 символов
+        } else if counterString.count > 6 {
+            //            То отбрасываем последние 6 символов и добавляем символ М (миллион)
+            counterString = String(counterString.dropLast(6)) + "M"
+        }
+        
+        return counterString
     }
     
     //    Метод, который отсортирует sourceId на положительные, отрицательные и достанет необходимый id длы вывода фото, имя и даты

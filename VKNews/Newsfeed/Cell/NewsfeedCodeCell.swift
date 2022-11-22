@@ -24,7 +24,7 @@ class NewsfeedCodeCell: UITableViewCell {
     //    Создадим переменную делегата выше
     weak var delegate: NewsFeedCodeDelegate?
     
-    /// Первый слой_________
+    /// Первый слой_____________________________________________
     //    Основной задний фон экрана
     let backView: UIView = {
         let view = UIView()
@@ -33,7 +33,7 @@ class NewsfeedCodeCell: UITableViewCell {
         return view
     }()
     
-    /// Второй слой_________
+    /// Второй слой______________________________________________
     //    TopView для изображения профиля, имя или название и даты размещения поста
     let topView: UIView = {
         let view = UIView()
@@ -41,13 +41,33 @@ class NewsfeedCodeCell: UITableViewCell {
         return view
     }()
     //    Поле с текстом поста
-    let postLabel: UILabel = {
-        let label = UILabel()
-        label.numberOfLines = 0
-        //        Размер шрифта
-        label.font = Constants.postLabelFont
-        label.textColor = #colorLiteral(red: 0.2276472747, green: 0.2322267592, blue: 0.2365691364, alpha: 1)
-        return label
+    //    let postLabel: UILabel = {
+    //        let label = UILabel()
+    //        label.numberOfLines = 0
+    //        //        Размер шрифта
+    //        label.font = Constants.postLabelFont
+    //        label.textColor = #colorLiteral(red: 0.2276472747, green: 0.2322267592, blue: 0.2365691364, alpha: 1)
+    //        return label
+    //    }()
+    let postLabel: UITextView = {
+        let textView = UITextView()
+        textView.font = Constants.postLabelFont
+        textView.textColor = #colorLiteral(red: 0.2276472747, green: 0.2322267592, blue: 0.2365691364, alpha: 1)
+        //        Отключаем прокрутку
+        textView.isScrollEnabled = false
+        //        Включаем реакцию на нажатие
+        textView.isSelectable = true
+        //        Включаем взаимодействие с пользователем
+        textView.isUserInteractionEnabled = true
+        //        Редактирование не возможно
+        textView.isEditable = false
+        //        Посколько отступы от краёв у лейбла (бывший объект) и textView разные, необходимо сделать таким же
+        let padding = textView.textContainer.lineFragmentPadding
+        textView.textContainerInset = UIEdgeInsets(top: 0, left: -padding, bottom: 0, right: -padding)
+        //        Указываем, что ВСЁ возможно для обнаружения в посте: ссылки, адреса, телефоны, календари и др.
+        textView.dataDetectorTypes = UIDataDetectorTypes.all
+        
+        return textView
     }()
     //    Кнопка открытия полного отображения текста поста
     let moreTextButton: UIButton = {
@@ -96,7 +116,7 @@ class NewsfeedCodeCell: UITableViewCell {
         return label
     }()
     
-    /// Третий слой на BottomView_________
+    /// Третий слой на BottomView__________________________________
     //    Вьшка с лайками
     let likesView: UIView = {
         let view = UIView()
