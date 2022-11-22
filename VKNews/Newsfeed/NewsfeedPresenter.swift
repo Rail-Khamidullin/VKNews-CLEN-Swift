@@ -18,7 +18,7 @@ class NewsfeedPresenter: NewsfeedPresentationLogic {
     //    ОБъект нашего протокола с инициализировали под класс FeedCellLayoutCalculator. Содержит в себе метод, который считает размеры объектов (post text, attachment photo), куда передаём ширину нашего экрана UIScreen.main.bounds.width
     var cellLayoutCalculator: FeedCellLayoutCalculatorProtocol = FeedCellLayoutCalculator()
     
-    //    Создаём форматер нашей даты
+    //    Создаём форматтер нашей даты
     let dateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
         //        Язык - русский
@@ -33,7 +33,7 @@ class NewsfeedPresenter: NewsfeedPresentationLogic {
         switch response {
         //        Данные которые получили и обработали (свернули в модель для отображения нужного нам формата) передаём в файл viewController
         case .presentNewsfeed(feed: let feed, let reveledPostIds):
-                        
+            
             //        Полученные данные из сети вставляем в наш конвертер
             let cells = feed.items.map { (feedItem) in
                 cellViewModel(from: feedItem, profiles: feed.profiles, groups: feed.groups, revealedPostIds: reveledPostIds)
@@ -42,6 +42,11 @@ class NewsfeedPresenter: NewsfeedPresentationLogic {
             let feedViewModel = FeedViewModel.init(cells: cells)
             //        Передаём в отображение нашу модель
             viewController?.displayData(viewModel: Newsfeed.Model.ViewModel.ViewModelData.displayNewsfeed(feedViewModel: feedViewModel))
+        case .presentUserInfo(user: let user):
+            //            Вставляем в структуру данных ячейки сконвертируемый формат полученных данных из сети
+            let userViewModel = UserViewModel.init(photoUrlString: user?.photo100)
+            //            Передаём в отображение нашу модель
+            viewController?.displayData(viewModel: Newsfeed.Model.ViewModel.ViewModelData.displayUser(userViewModel: userViewModel))
         }
     }
     
@@ -106,13 +111,13 @@ class NewsfeedPresenter: NewsfeedPresentationLogic {
     }
     
     private func photoAttachments(feedItem: FeedItem) -> [FeedViewModel.FeedCellPhotoAttachment] {
-//        Проверяем наличие фотографий
+        //        Проверяем наличие фотографий
         guard let attachments = feedItem.attachments else { return [] }
         
         return attachments.compactMap { (attachment) -> FeedViewModel.FeedCellPhotoAttachment? in
-//            Если фото имеется, то получаем его
+            //            Если фото имеется, то получаем его
             guard let photo = attachment.photo else { return nil }
-//            Добавляем данные наших фото в модель
+            //            Добавляем данные наших фото в модель
             return FeedViewModel.FeedCellPhotoAttachment.init(photoUrlString: photo.srcBIG,
                                                               width: photo.width,
                                                               height: photo.height)

@@ -41,7 +41,7 @@ class GalleryCollectionViewCell: UICollectionViewCell {
     func set(imageUrl: String?) {
         myImageView.set(imageUrl: imageUrl)
     }
-    //    Все кооректировки интерфейса желательно делать в данном методе
+    //    Все корректировки интерфейса желательно делать в данном методе
     override func layoutSubviews() {
         
         myImageView.layer.masksToBounds = true

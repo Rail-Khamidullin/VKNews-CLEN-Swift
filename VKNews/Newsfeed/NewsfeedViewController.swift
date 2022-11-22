@@ -21,6 +21,8 @@ class NewsfeedViewController: UIViewController, NewsfeedDisplayLogic, NewsFeedCo
     private var feedViewModel = FeedViewModel.init(cells: [])
     //    Наша таблица
     @IBOutlet weak var tableView: UITableView!
+    //    Экземпляр класса TitleView
+    private let titleView = TitleView()
     
     // MARK: Setup (конфигурация модуля )
     
@@ -43,6 +45,8 @@ class NewsfeedViewController: UIViewController, NewsfeedDisplayLogic, NewsFeedCo
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
+        //        Вызываем метод настройки навигейшн бара
+        setupTopBar()
         //        Убираем разделитель между ячейками
         tableView.separatorStyle = .none
         //        Убираем заливку таблицы
@@ -55,6 +59,17 @@ class NewsfeedViewController: UIViewController, NewsfeedDisplayLogic, NewsFeedCo
         tableView.register(NewsfeedCodeCell.self, forCellReuseIdentifier: NewsfeedCodeCell.reuseId)
         //    Отправляем запрос на получение данных для отображеия в новостной ленте (отправляемся в интерактор)
         interactor?.makeRequest(request: Newsfeed.Model.Request.RequestType.getNewsFeed)
+        //        Отправляем запрос на получение данных для отображения фото профиля в навигейшн баре (отправляемся в интерактор)
+        interactor?.makeRequest(request: Newsfeed.Model.Request.RequestType.getUser)
+    }
+    
+    //    Настраиваем навигешн бар
+    private func setupTopBar() {
+        //        Исчезновение бара при прокрутке вниз и появление при обратном
+        self.navigationController?.hidesBarsOnSwipe = true
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        //        Присваиваем загаловок навигейшн бара на наш созданный загаловок из TitleView
+        self.navigationItem.titleView = titleView
     }
     
     //  С помощью полученных и обработанных данных displayData вносит изменения в пользовательский интерфейс
@@ -66,6 +81,8 @@ class NewsfeedViewController: UIViewController, NewsfeedDisplayLogic, NewsFeedCo
             self.feedViewModel = feedViewModel
             //            Обновляем нашу таблицу
             tableView.reloadData()
+        case .displayUser(userViewModel: let userViewModel):
+            titleView.set(userViewModel: userViewModel)
         }
     }
     
@@ -118,4 +135,4 @@ extension NewsfeedViewController: UITableViewDelegate, UITableViewDataSource {
         return cellViewModel.sizes.totalHeight
     }
 }
- 
+

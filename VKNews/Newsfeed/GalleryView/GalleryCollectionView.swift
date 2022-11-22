@@ -22,9 +22,9 @@ class GalleryCollectionView: UICollectionView, UICollectionViewDelegate, UIColle
         //        Подписываемся под протоколы
         delegate = self
         dataSource = self
-        
+        //        Фон нашей галереи
         backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-//        Убираем индикатор скрола для коллекции
+        //        Убираем индикатор скрола для коллекции
         showsHorizontalScrollIndicator = false
         showsVerticalScrollIndicator = false
         

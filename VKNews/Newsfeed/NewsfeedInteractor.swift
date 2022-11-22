@@ -41,6 +41,11 @@ class NewsfeedInteractor: NewsfeedBusinessLogic {
                 
                 self? .presentFeed()
             }
+        case .getUser:
+            dataFetcher.getUser { [weak self] (userResponse) in
+                //                Передаём полученные данные в наше св-во userResponse
+                self?.presenter?.presentData(response: Newsfeed.Model.Response.ResponseType.presentUserInfo(user: userResponse))
+            }
         case .revealPostIds(postId: let postId):
             //            Передаём наш пост айди в массив
             reveledPostIds.append(postId)

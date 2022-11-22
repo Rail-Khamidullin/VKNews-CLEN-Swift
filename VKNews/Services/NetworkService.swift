@@ -37,8 +37,6 @@ final class NetworkService: Networking {
         allParams["v"] = APi.version
         //        Получаем окончательный url адрес
         let url = self.url(from: path, params: allParams)
-        
-        print(url)
         //        Создаём запрос
         let request = URLRequest(url: url)
         //        Создаём задачу и передаём далее
@@ -65,7 +63,7 @@ final class NetworkService: Networking {
         //        название сайта с которого запрашиваем запрос (api.vk.com)
         components.host = APi.host
         //        будет определять к какому методу обращаться (method/users.get)
-        components.path = APi.newsFeed
+        components.path = path
         //        параметры, которые будут зависеть от api
         components.queryItems = params.map { URLQueryItem(name: $0, value: $1) }
         //        Вернём готовый адрес

@@ -101,11 +101,11 @@ final class FeedCellLayoutCalculator: FeedCellLayoutCalculatorProtocol {
             let photoHeight: Float = Float(photoAttachments.height)
             //            Соотношение высоты к ширине
             let ratio = CGFloat(photoHeight / photoWidth)
-//            Если изображение 1
+            //            Если изображение 1
             if attachmentsPhoto.count == 1 {
                 //            Добавдяем размеры
                 attachmentFrame.size = CGSize(width: backViewWith, height: backViewWith * ratio)
-//                Если изображений несколько
+                //                Если изображений несколько
             } else if attachmentsPhoto.count > 1 {
                 //            Создаём массив с размерами фото
                 var photos = [CGSize]()

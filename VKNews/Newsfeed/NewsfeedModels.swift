@@ -16,6 +16,8 @@ enum Newsfeed {
             enum RequestType {
                 //        Получение новостных данных
                 case getNewsFeed
+                //                Создаём новый кейс с изображением пользователя
+                case getUser
                 //        Кейс с получением идентификатора поста из таблицы по indexPath
                 case revealPostIds(postId: Int)
             }
@@ -24,15 +26,24 @@ enum Newsfeed {
             enum ResponseType {
                 //        Кейс с ассоциативным значением FeedResponse и массивом id нажатых на кнопку ячеек
                 case presentNewsfeed(feed: FeedResponse, reveledpostIds: [Int])
+                //                Создаём новый кейс для иконки профиля в навегейшн баре
+                case presentUserInfo(user: UserResponse? )
             }
         }
         struct ViewModel {
             enum ViewModelData {
                 //        Кейс с ассоциативным значением FeedViewModel
                 case displayNewsfeed(feedViewModel: FeedViewModel)
+                //                Кейс с UserViewModel
+                case displayUser(userViewModel: UserViewModel)
             }
         }
     }
+}
+
+//   Создаём структуру модели данных, которая будет принимать изображение профиля в навигейшн баре из сети
+struct UserViewModel: TitleViewViewModel {
+    var photoUrlString: String?
 }
 
 //   Создаём структуру нашей модели данных, которая будет принимать данные из сети
