@@ -10,7 +10,7 @@ import Foundation
 
 protocol DataFetcher {
     //   Создадим интерфейс, который будет преобразовывать полученные JSON данные в нужный нам формат
-    func getFeed(response: @escaping (FeedResponse?) -> ())
+    func getFeed(nextBatchFrom: String?, response: @escaping (FeedResponse?) -> ())
     //    Добавляем новый запрос
     func getUser(response: @escaping (UserResponse?) -> ())
 }
@@ -28,7 +28,7 @@ struct NetworkDataFetcher: DataFetcher {
         self.authService = authService
     }
     
-//    Метод, который получает ответ из сети, декодирует данные из json формата в необходимую структуру и передаёт далее
+    //    Метод, который получает ответ из сети, декодирует данные из json формата в необходимую структуру и передаёт далее
     func getUser(response: @escaping (UserResponse?) -> ()) {
         
         guard let userId = authService.userId else { return }
@@ -49,14 +49,16 @@ struct NetworkDataFetcher: DataFetcher {
     }
     
     //    Метод который декодирует данные под структуру FeedResponse
-    func getFeed(response: @escaping (FeedResponse?) -> ()) {
+    func getFeed(nextBatchFrom: String?, response: @escaping (FeedResponse?) -> ()) {
         
         //        Создаём параметры данных, которые необходимы для отображения (список новостейЖ запись со стен и фотографии)
-        let params = ["filters" : "post, photo"]
+        var params = ["filters" : "post, photo"]
+        //        Параметр для получения дополнительных постов в ленте новостей снизу
+        params["start_from"] = nextBatchFrom
         
         //        Вызываем get запрос данных из интеренета по нашем параметрам в url
         networking.request(path: APi.newsFeed, params: params) { (data, error) in
-
+            
             //            Если ошибка имеется
             if let error = error {
                 print("Error recived requesting data: \(error.localizedDescription)")

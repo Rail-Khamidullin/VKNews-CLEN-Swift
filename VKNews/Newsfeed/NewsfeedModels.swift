@@ -16,17 +16,19 @@ enum Newsfeed {
             enum RequestType {
                 //        Получение новостных данных
                 case getNewsFeed
-                //                Создаём новый кейс с изображением пользователя
+                //        Создаём новый кейс с изображением пользователя
                 case getUser
                 //        Кейс с получением идентификатора поста из таблицы по indexPath
                 case revealPostIds(postId: Int)
+                //                Кейс для добавления новых постов внизу таблицы после скроллинга вверх
+                case getNextBatch
             }
         }
         struct Response {
             enum ResponseType {
                 //        Кейс с ассоциативным значением FeedResponse и массивом id нажатых на кнопку ячеек
-                case presentNewsfeed(feed: FeedResponse, reveledpostIds: [Int])
-                //                Создаём новый кейс для иконки профиля в навегейшн баре
+                case presentNewsfeed(feed: FeedResponse, reveledPostIds: [Int])
+                //        Создаём новый кейс для иконки профиля в навегейшн баре
                 case presentUserInfo(user: UserResponse? )
             }
         }
@@ -34,7 +36,7 @@ enum Newsfeed {
             enum ViewModelData {
                 //        Кейс с ассоциативным значением FeedViewModel
                 case displayNewsfeed(feedViewModel: FeedViewModel)
-                //                Кейс с UserViewModel
+                //        Кейс с UserViewModel
                 case displayUser(userViewModel: UserViewModel)
             }
         }
@@ -52,7 +54,6 @@ struct FeedViewModel {
     struct Cell: FeedCellViewModel {
         //        Айди нашего поста
         var postId: Int
-        
         //        Иконка url страницы откуда пришёл пост
         var iconUrlString: String
         //        Имя поста

@@ -21,6 +21,8 @@ struct FeedResponse: Decodable {
     var profiles: [Profile]
     //    Профиль группы, которая выложила пост
     var groups: [Group]
+    //    Получение новых новостей без дублирования старых
+    var nextFrom: String?
 }
 
 //   Состав массива новостей

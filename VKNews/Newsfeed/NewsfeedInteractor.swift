@@ -19,12 +19,6 @@ class NewsfeedInteractor: NewsfeedBusinessLogic {
     var presenter: NewsfeedPresentationLogic?
     //    Объект с запросом данных
     var service: NewsfeedService?
-    //    Массив с постами Айди (в случае если потребуется несколько значений)
-    var reveledPostIds = [Int]()
-    //    feedResponse будет принимать полученные данные из сети
-    var feedResponse: FeedResponse?
-    //    Достаём экземпляр структуры с сетевым запрсом
-    private var dataFetcher: DataFetcher = NetworkDataFetcher(networking: NetworkService())
     
     func makeRequest(request: Newsfeed.Model.Request.RequestType) {
         if service == nil {
@@ -32,33 +26,27 @@ class NewsfeedInteractor: NewsfeedBusinessLogic {
         }
         
         switch request {
-        ///      Мы попадаем в метод getNewsFeed из  viewDidLoad контроллера NewsfeedViewController (здесь мы будем делать сетевой запрос)
-        //        Метод getNewsFeed показывает нам все данные, которые приходят из интернета в нужном нам формате, ассоциативное значение (FeedResponse)
         case .getNewsFeed:
-            dataFetcher.getFeed { [weak self] (feedResponse) in
-                //                Передаём полученные данные в наше св-во feedResponse
-                self?.feedResponse = feedResponse
-                
-                self? .presentFeed()
-            }
+            //            Делаем запрос на полученние данных согласно структуре FeedResponse
+            service?.getFeed(completion: { [weak self] (reveledPostIds, feedResponse) in
+                //                Передаём данные в презентер
+                self?.presenter?.presentData(response: Newsfeed.Model.Response.ResponseType.presentNewsfeed(feed: feedResponse, reveledPostIds: reveledPostIds))
+            })
         case .getUser:
-            dataFetcher.getUser { [weak self] (userResponse) in
-                //                Передаём полученные данные в наше св-во userResponse
-                self?.presenter?.presentData(response: Newsfeed.Model.Response.ResponseType.presentUserInfo(user: userResponse))
-            }
+            service?.getUser(completion: { [weak self] (user) in
+                //                Передаём данные в презентер
+                self?.presenter?.presentData(response: Newsfeed.Model.Response.ResponseType.presentUserInfo(user: user))
+            })
         case .revealPostIds(postId: let postId):
-            //            Передаём наш пост айди в массив
-            reveledPostIds.append(postId)
-            
-            presentFeed()
+            service?.revealPostIds(forPostId: postId, completion: { [weak self] (reveledPostIds, feed) in
+                //                Передаём данные в презентер
+                self?.presenter?.presentData(response: Newsfeed.Model.Response.ResponseType.presentNewsfeed(feed: feed, reveledPostIds: reveledPostIds))
+            })
+        case .getNextBatch:
+            service?.getNewsBatch(completion: { [weak self] (reveledPostIds, feedResponse) in
+                //                Передаём данные в презентер
+                self?.presenter?.presentData(response: Newsfeed.Model.Response.ResponseType.presentNewsfeed(feed: feedResponse, reveledPostIds: reveledPostIds))
+            })
         }
-    }
-    
-    //    Метод, который проверяет на nil и передаёт данные в презентер
-    private func presentFeed() {
-        //                Проверяем на наличие данных
-        guard let feedResponse = feedResponse else { return }
-        //            Передаём полученны данные в презентер
-        presenter?.presentData(response: Newsfeed.Model.Response.ResponseType.presentNewsfeed(feed: feedResponse, reveledpostIds: reveledPostIds))
     }
 }

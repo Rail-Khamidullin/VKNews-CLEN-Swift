@@ -92,6 +92,7 @@ class NewsfeedCodeCell: UITableViewCell {
         let view = UIView()
         return view
     }()
+    
     /// Третий слой на topView_________
     let iconImageView: WebImageView = {
         let imageView = WebImageView()

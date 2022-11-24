@@ -115,6 +115,15 @@ class NewsfeedViewController: UIViewController, NewsfeedDisplayLogic, NewsFeedCo
         }
     }
     
+    //    Фиксирует местоположение на экране
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        //        Если мы опустимся ниже середины новостной ленты, то будем выводить
+        if scrollView.contentOffset.y < scrollView.contentSize.height / 1.1 {
+            //            Отправляем запрос на обновление новостной ленты снизу, после скролла на верх
+            interactor?.makeRequest(request: Newsfeed.Model.Request.RequestType.getNextBatch)
+        }
+    }
+    
     // MARK: - реализуем функцию протокола NewsFeedCodeDelegate
     
     func revealPost(for cell: NewsfeedCodeCell) {

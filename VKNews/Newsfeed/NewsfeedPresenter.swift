@@ -60,7 +60,7 @@ class NewsfeedPresenter: NewsfeedPresentationLogic {
         let dateTitle = dateFormatter.string(from: date)
         //        Достаём наши фото
         let photoAttachments = self.photoAttachments(feedItem: feedItem)
-        //        Пробегаемся по массиву reveledpostIds и если какой-нибудь postId совпал с конкретной ячейкой
+        //        Пробегаемся по массиву revealedPostIds и если какой-нибудь postId совпал с конкретной ячейкой
         let isFullSized = revealedPostIds.contains { (postId) -> Bool in
             return postId == feedItem.postId
         }
