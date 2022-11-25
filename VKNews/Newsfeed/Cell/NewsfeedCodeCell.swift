@@ -40,15 +40,7 @@ class NewsfeedCodeCell: UITableViewCell {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    //    Поле с текстом поста
-    //    let postLabel: UILabel = {
-    //        let label = UILabel()
-    //        label.numberOfLines = 0
-    //        //        Размер шрифта
-    //        label.font = Constants.postLabelFont
-    //        label.textColor = #colorLiteral(red: 0.2276472747, green: 0.2322267592, blue: 0.2365691364, alpha: 1)
-    //        return label
-    //    }()
+    //   Лейбл с постом в новостной ленте
     let postLabel: UITextView = {
         let textView = UITextView()
         textView.font = Constants.postLabelFont
@@ -84,7 +76,7 @@ class NewsfeedCodeCell: UITableViewCell {
     //    Изображения с поста
     let postImageView: WebImageView = {
         let imageView = WebImageView()
-        imageView.backgroundColor = #colorLiteral(red: 0.8901960784, green: 0.8980392157, blue: 0.9098039216, alpha: 1)
+        imageView.backgroundColor = #colorLiteral(red: 0.8235294118, green: 0.3098039216, blue: 0.3294117647, alpha: 1)
         return imageView
     }()
     //    bottomView для хранения объектов с просмотрами, лайками, комментариями и репостами
@@ -142,6 +134,7 @@ class NewsfeedCodeCell: UITableViewCell {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+    
     /// Четвёртый слой на BottomView_________
     //    Заполнение ячейки изображения: лайки, комментарии, репосты, просмотры
     let likesImage: UIImageView = {

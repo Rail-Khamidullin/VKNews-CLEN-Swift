@@ -12,13 +12,13 @@ import UIKit
 //   Класс, который загружает с сервера изображения и отправляет их в кеш для дальнейшего переиспользования
 class WebImageView: UIImageView {
     
-//    Св-во для хранения ссылки на изображение
+    //    Св-во для хранения ссылки на изображение
     private var currentUrlString: String?
     
     //    Метод для получения иконки профиля человека или группы из сети по url адресу
     func set(imageUrl: String? ) {
         
-//        Добавляем доступ к конкретной url ссылки
+        //        Добавляем доступ к конкретной url ссылки
         currentUrlString = imageUrl
         
         //        Проверям url адресс
@@ -59,9 +59,9 @@ class WebImageView: UIImageView {
         URLCache.shared.storeCachedResponse(cachedResponse, for: URLRequest(url: responseURL))
         
         /// В целях более лучшего отображения изображений, чтобы не было старых изображений старой ячейки при прокрутки и обновления ленты (при переиспользовании ячейки)
-//        Если наш url в кеш = текущему url
+        //        Если наш url в кеш = текущему url
         if responseURL.absoluteString == currentUrlString {
-//            Присваиваем полученное изображение
+            //            Присваиваем полученное изображение
             self.image = UIImage(data: data)
         }
     }
