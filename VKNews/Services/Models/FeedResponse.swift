@@ -120,7 +120,6 @@ struct Profile: Decodable, ProfileRepresentableProtocol {
     let lastName: String
     //    Фото
     let photo100: String
-    
     //    Возвращать будет удобочитаемое имя, которое содержит имя и фамилию
     var name: String {
         return firstName + " " + lastName
@@ -139,7 +138,6 @@ struct Group: Decodable, ProfileRepresentableProtocol {
     let name: String
     //    Фото группы
     let photo100: String
-    
     //    Возвращать будум фотографию с понятным названием
     var photo: String {
         return photo100

@@ -20,7 +20,6 @@ class WebImageView: UIImageView {
         
         //        Добавляем доступ к конкретной url ссылки
         currentUrlString = imageUrl
-        
         //        Проверям url адресс
         guard let imageUrl = imageUrl, let url = URL(string: imageUrl) else {
             //            Если не удалось извлечь картинку, то выводим nil
@@ -34,7 +33,6 @@ class WebImageView: UIImageView {
             self.image = UIImage(data: cachedResponse.data)
             return
         }
-        
         //        Если в Кеш данных нет, то достаём данные для изображения из сети
         let dataTask = URLSession.shared.dataTask(with: url) { [weak self] (data, response, error) in
             //            Загружаем асинхронно в главной очереди

@@ -18,6 +18,6 @@ struct APi {
     static let version = "5.131"
     //    Метод запроса
     static let newsFeed = "/method/newsfeed.get"
-//    Метод запроса с массивом фото пользователя
+    //    Метод запроса с массивом фото пользователей
     static let user = "/method/users.get"
 }

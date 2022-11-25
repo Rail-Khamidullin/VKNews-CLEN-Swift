@@ -8,6 +8,7 @@
 
 import UIKit
 
+//   Метод через который общается контроллер с интерактором зависит от абстракции
 protocol NewsfeedBusinessLogic {
     func makeRequest(request: Newsfeed.Model.Request.RequestType)
 }
@@ -20,6 +21,7 @@ class NewsfeedInteractor: NewsfeedBusinessLogic {
     //    Объект с запросом данных
     var service: NewsfeedService?
     
+    //    Метод через который общается контроллер с интерактором
     func makeRequest(request: Newsfeed.Model.Request.RequestType) {
         if service == nil {
             service = NewsfeedService()

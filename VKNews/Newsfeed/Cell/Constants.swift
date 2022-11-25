@@ -9,7 +9,6 @@
 import Foundation
 import UIKit
 
-
 //   Фиксируем размеры BackView
 struct Constants {
     //    Расположение BackView

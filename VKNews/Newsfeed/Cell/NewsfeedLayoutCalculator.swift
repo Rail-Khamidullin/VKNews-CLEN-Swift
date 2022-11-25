@@ -45,7 +45,6 @@ final class FeedCellLayoutCalculator: FeedCellLayoutCalculatorProtocol {
         
         //        Флажок, определяющий показывать кнопку для большого текста или нет
         var showMoreTextButton = false
-        
         //        Размеры заднего фона ячейки
         let backViewWith = screenWidth - Constants.backInsets.left - Constants.backInsets.right
         
@@ -54,7 +53,6 @@ final class FeedCellLayoutCalculator: FeedCellLayoutCalculatorProtocol {
         //        origin отвечает за точку отсчёта координат (левый верхний угол объекта), а size за размеры
         var postlabelFrame = CGRect(origin: CGPoint(x: Constants.postLabelInsets.left, y: Constants.postLabelInsets.top ),
                                     size: CGSize.zero)
-        
         //        Проверяем наличие текста, если он есть, то проваливаемся, если нет, то он равен 0 (CGSize.zero)
         if let text = postText, !text.isEmpty {
             //            Определяем ширину и высоту пост лейбла
@@ -90,7 +88,6 @@ final class FeedCellLayoutCalculator: FeedCellLayoutCalculatorProtocol {
         
         //        Поиск координаты y. Если пост с текстом отсутсвует, то y будет равен сумме максимальной выосты лейбла с постом + констрейнт от поста с текстом до изображения новости
         let attachmentTop = postlabelFrame.size == CGSize.zero ? Constants.postLabelInsets.top : moreTextButtonFrame.maxY + Constants.postLabelInsets.bottom
-        
         //        Устанавливаем расположение и размеры изображения
         var attachmentFrame = CGRect(origin: CGPoint(x: 0, y: attachmentTop), size: CGSize.zero)
         //        Если фото есть

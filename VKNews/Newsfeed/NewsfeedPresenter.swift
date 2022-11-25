@@ -8,16 +8,17 @@
 
 import UIKit
 
+//   Через данный метод интерактор общается с презентером и зависит от абстракцииф
 protocol NewsfeedPresentationLogic {
     func presentData(response: Newsfeed.Model.Response.ResponseType)
 }
 
 class NewsfeedPresenter: NewsfeedPresentationLogic {
     
+    //    Презентер общается с контроллером через абстракцию
     weak var viewController: NewsfeedDisplayLogic?
     //    ОБъект нашего протокола с инициализировали под класс FeedCellLayoutCalculator. Содержит в себе метод, который считает размеры объектов (post text, attachment photo), куда передаём ширину нашего экрана UIScreen.main.bounds.width
     var cellLayoutCalculator: FeedCellLayoutCalculatorProtocol = FeedCellLayoutCalculator()
-    
     //    Создаём форматтер нашей даты
     let dateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
@@ -28,12 +29,12 @@ class NewsfeedPresenter: NewsfeedPresentationLogic {
         return dateFormatter
     }()
     
+    //    Через данный метод интерактор общается с презентером
     func presentData(response: Newsfeed.Model.Response.ResponseType) {
         //  Посколько мы из Интректора вызвали request.getNewsFeed попадаем сюда, то
         switch response {
         //        Данные которые получили и обработали (свернули в модель для отображения нужного нам формата) передаём в файл viewController
         case .presentNewsfeed(feed: let feed, let reveledPostIds):
-            
             //        Полученные данные из сети вставляем в наш конвертер
             let cells = feed.items.map { (feedItem) in
                 cellViewModel(from: feedItem, profiles: feed.profiles, groups: feed.groups, revealedPostIds: reveledPostIds)
@@ -44,11 +45,14 @@ class NewsfeedPresenter: NewsfeedPresentationLogic {
             let feedViewModel = FeedViewModel.init(cells: cells, footerTitle: fotterTitle)
             //        Передаём в отображение нашу модель
             viewController?.displayData(viewModel: Newsfeed.Model.ViewModel.ViewModelData.displayNewsfeed(feedViewModel: feedViewModel))
+            
+        //            Через данный кейч передаём изображение пользователя контакта в title навигейшн бара
         case .presentUserInfo(user: let user):
             //            Вставляем в структуру данных ячейки сконвертируемый формат полученных данных из сети
             let userViewModel = UserViewModel.init(photoUrlString: user?.photo100)
             //            Передаём в отображение нашу модель
             viewController?.displayData(viewModel: Newsfeed.Model.ViewModel.ViewModelData.displayUser(userViewModel: userViewModel))
+            
         //            Передаём нижний колонтитул в отображение на экран
         case .presentFooterLoader:
             viewController?.displayData(viewModel: Newsfeed.Model.ViewModel.ViewModelData.displayFooterLoader)
@@ -69,7 +73,7 @@ class NewsfeedPresenter: NewsfeedPresentationLogic {
         let isFullSized = revealedPostIds.contains { (postId) -> Bool in
             return postId == feedItem.postId
         }
-        
+        //        Размеры ячейки
         let sizes = cellLayoutCalculator.sizes(postText: feedItem.text, attachmentsPhoto: photoAttachments, isFullSizedPost: isFullSized)
         //        При появлении в тексте знаков <br>, будут заменяться на \n (пробел)
         let postText = feedItem.text?.replacingOccurrences(of: "<br>", with: "\n")
@@ -102,7 +106,6 @@ class NewsfeedPresenter: NewsfeedPresentationLogic {
             //            То отбрасываем последние 6 символов и добавляем символ М (миллион)
             counterString = String(counterString.dropLast(6)) + "M"
         }
-        
         return counterString
     }
     
@@ -136,6 +139,7 @@ class NewsfeedPresenter: NewsfeedPresentationLogic {
                                                           height: firstPhoto.height)
     }
     
+    //    Метод, который принимает структуру FeedItem и обновляет данные в структуре для дальнейшей передачи для отображения
     private func photoAttachments(feedItem: FeedItem) -> [FeedViewModel.FeedCellPhotoAttachment] {
         //        Проверяем наличие фотографий
         guard let attachments = feedItem.attachments else { return [] }

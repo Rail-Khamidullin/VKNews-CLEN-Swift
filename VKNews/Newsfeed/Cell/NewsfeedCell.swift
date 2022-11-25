@@ -44,7 +44,7 @@ protocol FeedCellSizes {
     var buttonViewFrame: CGRect { get }
     //    Высота всей ячейки
     var totalHeight: CGFloat { get }
-//    Кнопка при большом кол-во текста в посте
+    //    Кнопка при большом кол-во текста в посте
     var moreTextButtonFrame: CGRect { get }
 }
 
@@ -53,7 +53,6 @@ class NewsfeedCell: UITableViewCell {
     
     //    Идентификатор ячейки
     static let reuseId = "NewsfeedCell"
-    
     //    Задний view нашей ячейки
     @IBOutlet weak var backView: UIView!
     //    Иконка с отображением группы или профиля человека
@@ -82,6 +81,7 @@ class NewsfeedCell: UITableViewCell {
         iconImageView.set(imageUrl: nil)
         postImageView.set(imageUrl: nil)
     }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         //        Метод с доп изменением объектов экрана
@@ -103,32 +103,32 @@ class NewsfeedCell: UITableViewCell {
     }
     
     /*
-    //    Передаём нашим элементам данные
-    func set(viewModel: FeedCellViewModel) {
-        iconImageView.set(imageUrl: viewModel.iconUrlString)
-        nameLabel.text = viewModel.name
-        dateLabel.text = viewModel.date
-        postLabel.text = viewModel.text
-        likesLabel.text = viewModel.likes
-        commentsLabel.text = viewModel.comments
-        sharesLabel.text = viewModel.shares
-        viewsLabel.text = viewModel.views
-        //        Присваиваем размеры postLabel, postImageView, bottomView
-        postLabel.frame = viewModel.sizes.postLabelFrame
-        postImageView.frame = viewModel.sizes.attacmentFrame
-        bottomView.frame = viewModel.sizes.buttonViewFrame
-        
-        //        Проверяем наличие фото
-        if let photoAttachment = viewModel.photoAttachment {
-            //            Если фото имеется, то отображаем его на экране
-            postImageView.set(imageUrl: photoAttachment.photoUrlString)
-            //            И отображаем postImageView
-            postImageView.isHidden = false
-        } else {
-            //        Если изображения нет, то postImageView скрываем
-            postImageView.isHidden = true
-        }
-    }
- */
+     //    Передаём нашим элементам данные
+     func set(viewModel: FeedCellViewModel) {
+     iconImageView.set(imageUrl: viewModel.iconUrlString)
+     nameLabel.text = viewModel.name
+     dateLabel.text = viewModel.date
+     postLabel.text = viewModel.text
+     likesLabel.text = viewModel.likes
+     commentsLabel.text = viewModel.comments
+     sharesLabel.text = viewModel.shares
+     viewsLabel.text = viewModel.views
+     //        Присваиваем размеры postLabel, postImageView, bottomView
+     postLabel.frame = viewModel.sizes.postLabelFrame
+     postImageView.frame = viewModel.sizes.attacmentFrame
+     bottomView.frame = viewModel.sizes.buttonViewFrame
+     
+     //        Проверяем наличие фото
+     if let photoAttachment = viewModel.photoAttachment {
+     //            Если фото имеется, то отображаем его на экране
+     postImageView.set(imageUrl: photoAttachment.photoUrlString)
+     //            И отображаем postImageView
+     postImageView.isHidden = false
+     } else {
+     //        Если изображения нет, то postImageView скрываем
+     postImageView.isHidden = true
+     }
+     }
+     */
 }
 

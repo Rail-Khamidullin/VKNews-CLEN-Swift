@@ -8,14 +8,16 @@
 
 import UIKit
 
+//   Метода для отображения интерфейса
 protocol NewsfeedDisplayLogic: class {
     func displayData(viewModel: Newsfeed.Model.ViewModel.ViewModelData)
 }
 
 class NewsfeedViewController: UIViewController, NewsfeedDisplayLogic, NewsFeedCodeDelegate {
     
+    //    Экземпляр класса интерактор (сетевой запрос)
     var interactor: NewsfeedBusinessLogic?
-    
+    //    Экземпляр класса роутер в случае нескольких экранов
     var router: (NSObjectProtocol & NewsfeedRoutingLogic)?
     //    Создаём модель данных новостной ленты  FeedViewModel, которая содержит посты нашего массива
     private var feedViewModel = FeedViewModel.init(cells: [], footerTitle: nil)
@@ -37,6 +39,7 @@ class NewsfeedViewController: UIViewController, NewsfeedDisplayLogic, NewsFeedCo
     
     // MARK: Setup (конфигурация модуля )
     
+    //    Зависимости
     private func setup() {
         let viewController        = self
         let interactor            = NewsfeedInteractor()
@@ -55,13 +58,12 @@ class NewsfeedViewController: UIViewController, NewsfeedDisplayLogic, NewsFeedCo
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //        Зависимости
         setup()
         //        Вызываем метод настройки навигейшн бара
         setupTopBar()
+        //        Настройка отображения таблицы
         setupTable()
-        //        Меняем цвет родительского view
-//        view.backgroundColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
-        
         //    Отправляем запрос на получение данных для отображеия в новостной ленте (отправляемся в интерактор)
         interactor?.makeRequest(request: Newsfeed.Model.Request.RequestType.getNewsFeed)
         //        Отправляем запрос на получение данных для отображения фото профиля в навигейшн баре (отправляемся в интерактор)
@@ -70,15 +72,19 @@ class NewsfeedViewController: UIViewController, NewsfeedDisplayLogic, NewsFeedCo
     
     //    Настраиваем навигешн бар
     private func setupTopBar() {
-//        Настраиваем кастомный таб  бар
+        //        Настраиваем кастомный таб  бар
         let topBar = UIView(frame: UIApplication.shared.statusBarFrame)
         topBar.backgroundColor = .white
+        //        Цвет тени
         topBar.layer.shadowColor = UIColor.black.cgColor
+        //        Непрозрачность тени
         topBar.layer.shadowOpacity = 0.3
+        //        Смещение тени
         topBar.layer.shadowOffset = CGSize.zero
+        //        Радиус тени
         topBar.layer.shadowRadius = 8
+        //        Добавляем topBar на view
         self.view.addSubview(topBar)
-        
         //        Исчезновение бара при прокрутке вниз и появление при обратном
         self.navigationController?.hidesBarsOnSwipe = true
         self.navigationController?.navigationBar.shadowImage = UIImage()
@@ -86,6 +92,7 @@ class NewsfeedViewController: UIViewController, NewsfeedDisplayLogic, NewsFeedCo
         self.navigationItem.titleView = titleView
     }
     
+    //    Настройка отображения таблицы
     private func setupTable() {
         //        Расстояние сверху
         let topInset: CGFloat = 8
@@ -95,7 +102,6 @@ class NewsfeedViewController: UIViewController, NewsfeedDisplayLogic, NewsFeedCo
         tableView.separatorStyle = .none
         //        Убираем заливку таблицы
         tableView.backgroundColor = .clear
-        
         //    Регистрируем нашу ячейку NewsfeedCell
         tableView.register(UINib(nibName: "NewsfeedCell", bundle: nil), forCellReuseIdentifier: NewsfeedCell.reuseId)
         //        Регистрируем новуу ячейку, где будем создавать отображение объектов программно
@@ -158,6 +164,7 @@ class NewsfeedViewController: UIViewController, NewsfeedDisplayLogic, NewsFeedCo
 extension NewsfeedViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        //        Кол-во ячеек в секции
         return feedViewModel.cells.count
     }
     
@@ -186,6 +193,7 @@ extension NewsfeedViewController: UITableViewDelegate, UITableViewDataSource {
         let cellViewModel = feedViewModel.cells[indexPath.row]
         return cellViewModel.sizes.totalHeight
     }
+    
     //    При нажатии на moreTextButton пост с текстом будет увеличен и изменятся размеры ячейки. Данный метод автоматически высчитывает размеры ячейки таблицы.
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         let cellViewModel = feedViewModel.cells[indexPath.row]

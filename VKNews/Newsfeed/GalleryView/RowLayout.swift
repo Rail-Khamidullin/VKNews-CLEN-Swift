@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-
+//   Передаём данные делегата в RowLayout
 protocol RowlayoutDelegate: class {
     func collectionView(_ collectionView: UICollectionView, photoAtIndexPath indexPath: IndexPath) -> CGSize
 }
@@ -74,7 +74,6 @@ class RowLayout: UICollectionViewLayout {
         
         //        Массив с соотношением сторон каждого изображения
         let photosRatios = photos.map { $0.height / $0.width }
-        
         //        Определяем вертикальные координаты
         var yOffset = [CGFloat]()
         //        Пробегаемся по всем строкам
@@ -85,7 +84,6 @@ class RowLayout: UICollectionViewLayout {
         
         //        Горизонтальная координата x
         var xOffset = [CGFloat](repeating: 0, count: RowLayout.numberOfRows)
-        
         //        Переменная со строкой
         var row = 0
         
@@ -110,9 +108,9 @@ class RowLayout: UICollectionViewLayout {
             xOffset[row] = xOffset[row] + width
             
             row = row < (RowLayout.numberOfRows - 1) ? (row + 1) : 0
-            
         }
     }
+    
     //        Функция типа для расчёта высоты для одной строки на основе полученных размеров изображений
     static func rowHeightCounter(superviewWidth: CGFloat, photosArray: [CGSize]) -> CGFloat? {
         //        Высота изображения

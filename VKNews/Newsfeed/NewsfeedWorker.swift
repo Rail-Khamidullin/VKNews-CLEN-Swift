@@ -11,6 +11,7 @@ import UIKit
 //   Класс для запроса данных
 class NewsfeedService {
     
+    //    Доступ к объектам аутентификации и сетевым запросам
     var authService: AuthService
     var networking: Networking
     var fetcher: DataFetcher

@@ -17,7 +17,7 @@ class AuthViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //        Имеем доступ к SceneDelegate глобально
+        //       Имеем доступ к SceneDelegate глобально
         authService = SceneDelegate.shared().authService
         view.backgroundColor = .white
         prepareSignInButton()

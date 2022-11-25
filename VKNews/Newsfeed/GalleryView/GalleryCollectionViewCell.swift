@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 
+//   Настройка отображения ячейки
 class GalleryCollectionViewCell: UICollectionViewCell {
     
     //    Идентификатор ячейки
@@ -25,7 +26,6 @@ class GalleryCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         //        Добавляем myImageView в ячейку
         addSubview(myImageView)
         //        Добавляем констрейнты для myImageView (будет заполнять всё пространство ячейки)
@@ -41,17 +41,22 @@ class GalleryCollectionViewCell: UICollectionViewCell {
     func set(imageUrl: String?) {
         myImageView.set(imageUrl: imageUrl)
     }
+    
     //    Все корректировки интерфейса желательно делать в данном методе
     override func layoutSubviews() {
         
+        //        Изображение будет обрезано до границ
         myImageView.layer.masksToBounds = true
         //        Скругление углов изображения
         myImageView.layer.cornerRadius = 10
         //        Добавляем тени
         self.layer.shadowRadius = 3
+        //        Непрозрачность тени
         layer.shadowOpacity = 0.4
+        //        Смещение тени
         layer.shadowOffset = CGSize(width: 2.5, height: 4)
     }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

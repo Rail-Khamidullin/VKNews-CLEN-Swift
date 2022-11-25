@@ -20,13 +20,12 @@ class NewsfeedCodeCell: UITableViewCell {
     
     //    Айди нашей ячейки
     static let reuseId = "NewsfeedCodeCell"
-    
     //    Создадим переменную делегата выше
     weak var delegate: NewsFeedCodeDelegate?
     
     /// Первый слой_____________________________________________
     //    Основной задний фон экрана
-    let backView: UIView = {
+    private let backView: UIView = {
         let view = UIView()
         view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -35,13 +34,13 @@ class NewsfeedCodeCell: UITableViewCell {
     
     /// Второй слой______________________________________________
     //    TopView для изображения профиля, имя или название и даты размещения поста
-    let topView: UIView = {
+    private let topView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     //   Лейбл с постом в новостной ленте
-    let postLabel: UITextView = {
+    private let postLabel: UITextView = {
         let textView = UITextView()
         textView.font = Constants.postLabelFont
         textView.textColor = #colorLiteral(red: 0.2276472747, green: 0.2322267592, blue: 0.2365691364, alpha: 1)
@@ -62,7 +61,7 @@ class NewsfeedCodeCell: UITableViewCell {
         return textView
     }()
     //    Кнопка открытия полного отображения текста поста
-    let moreTextButton: UIButton = {
+    private let moreTextButton: UIButton = {
         let button = UIButton()
         button.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .medium)
         button.setTitleColor(#colorLiteral(red: 0.4, green: 0.6235294118, blue: 0.831372549, alpha: 1), for: .normal)
@@ -72,27 +71,27 @@ class NewsfeedCodeCell: UITableViewCell {
         return button
     }()
     //    Создаём объект GalleryCollectionView
-    let galleryCollectionView = GalleryCollectionView()
+    private let galleryCollectionView = GalleryCollectionView()
     //    Изображения с поста
-    let postImageView: WebImageView = {
+    private let postImageView: WebImageView = {
         let imageView = WebImageView()
         imageView.backgroundColor = #colorLiteral(red: 0.8235294118, green: 0.3098039216, blue: 0.3294117647, alpha: 1)
         return imageView
     }()
     //    bottomView для хранения объектов с просмотрами, лайками, комментариями и репостами
-    let bottomView: UIView = {
+    private let bottomView: UIView = {
         let view = UIView()
         return view
     }()
     
     /// Третий слой на topView_________
-    let iconImageView: WebImageView = {
+    private let iconImageView: WebImageView = {
         let imageView = WebImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     //    Имя сообщества или человека
-    let nameLabel: UILabel = {
+    private let nameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
@@ -101,7 +100,7 @@ class NewsfeedCodeCell: UITableViewCell {
         return label
     }()
     //    Дата публикации поста
-    let dateLabel: UILabel = {
+    private let dateLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 12)
@@ -111,25 +110,25 @@ class NewsfeedCodeCell: UITableViewCell {
     
     /// Третий слой на BottomView__________________________________
     //    Вьшка с лайками
-    let likesView: UIView = {
+    private let likesView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     //    Вьшка с комментариями
-    let commentsView: UIView = {
+    private let commentsView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     //    Вьшка с репостами
-    let sharesView: UIView = {
+    private let sharesView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     //    Вьшка с просмотрами
-    let viewsView: UIView = {
+    private let viewsView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -137,35 +136,35 @@ class NewsfeedCodeCell: UITableViewCell {
     
     /// Четвёртый слой на BottomView_________
     //    Заполнение ячейки изображения: лайки, комментарии, репосты, просмотры
-    let likesImage: UIImageView = {
+    private let likesImage: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = UIImage(named: "like")
         return imageView
     }()
     //    Иконка комментарии
-    let commentsImage: UIImageView = {
+    private let commentsImage: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = UIImage(named: "comment")
         return imageView
     }()
     //    Иконка репостов
-    let sharesImage: UIImageView = {
+    private let sharesImage: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = UIImage(named: "share")
         return imageView
     }()
     //    Иконка просмотров
-    let viewsImage: UIImageView = {
+    private let viewsImage: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = UIImage(named: "eye")
         return imageView
     }()
     //    Заполнение ячейки с кол-ом: лайки, комментарии, репосты, просмотры
-    let likesLabel: UILabel = {
+    private let likesLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = #colorLiteral(red: 0.5058823529, green: 0.5490196078, blue: 0.6, alpha: 1)
@@ -175,7 +174,7 @@ class NewsfeedCodeCell: UITableViewCell {
         return label
     }()
     //    Лейбл с кол-ом комментарий
-    let commentsLabel: UILabel = {
+    private let commentsLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = #colorLiteral(red: 0.5058823529, green: 0.5490196078, blue: 0.6, alpha: 1)
@@ -185,7 +184,7 @@ class NewsfeedCodeCell: UITableViewCell {
         return label
     }()
     //    Лейбл с кол-ом репостов
-    let sharesLabel: UILabel = {
+    private let sharesLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = #colorLiteral(red: 0.5058823529, green: 0.5490196078, blue: 0.6, alpha: 1)
@@ -195,7 +194,7 @@ class NewsfeedCodeCell: UITableViewCell {
         return label
     }()
     //    Лейбл с кол-ом просмотров
-    let viewsLabel: UILabel = {
+    private let viewsLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = #colorLiteral(red: 0.5058823529, green: 0.5490196078, blue: 0.6, alpha: 1)
@@ -255,7 +254,6 @@ class NewsfeedCodeCell: UITableViewCell {
         bottomView.frame = viewModel.sizes.buttonViewFrame
         moreTextButton.frame = viewModel.sizes.moreTextButtonFrame
         
-        
         //        Проверяем наличие фото
         if let photoAttachment = viewModel.photoAttachments.first, viewModel.photoAttachments.count == 1 {
             //            Если фото имеется, то отображаем его на экране
@@ -281,7 +279,6 @@ class NewsfeedCodeCell: UITableViewCell {
             postImageView.isHidden = true
             galleryCollectionView.isHidden = true
         }
-        
     }
     
     //    Накладываем четвёртый слой на ячейки BottomView

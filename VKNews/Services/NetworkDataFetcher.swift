@@ -8,6 +8,7 @@
 
 import Foundation
 
+//   Создадим абстракцию для получения данных из сети
 protocol DataFetcher {
     //   Создадим интерфейс, который будет преобразовывать полученные JSON данные в нужный нам формат
     func getFeed(nextBatchFrom: String?, response: @escaping (FeedResponse?) -> ())

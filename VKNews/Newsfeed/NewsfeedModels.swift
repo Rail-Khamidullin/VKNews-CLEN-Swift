@@ -12,6 +12,7 @@ import UIKit
 enum Newsfeed {
     
     enum Model {
+        //        Запросы контроллера
         struct Request {
             enum RequestType {
                 //        Получение новостных данных
@@ -24,6 +25,7 @@ enum Newsfeed {
                 case getNextBatch
             }
         }
+        //        Ответы в презентер
         struct Response {
             enum ResponseType {
                 //        Кейс с ассоциативным значением FeedResponse и массивом id нажатых на кнопку ячеек
@@ -34,6 +36,7 @@ enum Newsfeed {
                 case presentFooterLoader
             }
         }
+        //        Передача обработанных ответов в контроллер
         struct ViewModel {
             enum ViewModelData {
                 //        Кейс с ассоциативным значением FeedViewModel
@@ -80,6 +83,7 @@ struct FeedViewModel {
         var sizes: FeedCellSizes
     }
     
+    //    Структура с размерами и адресом изображения профиля пользователя
     struct FeedCellPhotoAttachment: FeedCellPhotoAttachmentViewModel {
         //        URL адрес фото
         var photoUrlString: String?

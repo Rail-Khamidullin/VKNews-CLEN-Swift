@@ -29,7 +29,7 @@ class AuthService: NSObject, VKSdkDelegate, VKSdkUIDelegate {
     var token: String? {
         return VKSdk.accessToken()?.accessToken
     }
-//    Достаём ключ пользователя
+    //    Достаём ключ пользователя
     var userId: String? {
         return VKSdk.accessToken()?.userId
     }
@@ -63,30 +63,25 @@ class AuthService: NSObject, VKSdkDelegate, VKSdkUIDelegate {
     
     //    Успешная авторизация
     func vkSdkAccessAuthorizationFinished(with result: VKAuthorizationResult!) {
-        
+        //        Если ключ существует
         if result.token != nil { 
-            //        Смотрим, когда вызывается функция
+            //       Передаём вход далее
             delegate?.authServiceSingIn()
         }
         print(#function)
     }
+    
     //    В случае ошибки будет срабатывать
     func vkSdkUserAuthorizationFailed() {
-        //        Смотрим, когда вызывается функция
-        print(#function)
         delegate?.authServiceSingInDidFail()
     }
+    
     //    Готов ли SDK к работе. Открываем контроллер
     func vkSdkShouldPresent(_ controller: UIViewController!) {
-        //        Смотрим, когда вызывается функция
-        print(#function)
-        
         //        Передаём через делегат параметр контроллера дальше
         delegate?.authServiceShouldShow(controller)
     }
     
     func vkSdkNeedCaptchaEnter(_ captchaError: VKError!) {
-        //        Смотрим, когда вызывается функция
-        print(#function)
     }
 }

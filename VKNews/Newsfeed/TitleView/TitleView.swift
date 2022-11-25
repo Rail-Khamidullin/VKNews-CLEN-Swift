@@ -71,10 +71,10 @@ class TitleView: UIView {
     override var intrinsicContentSize: CGSize {
         return UIView.layoutFittingExpandedSize
     }
+    
     //    Скругляем изображение через спец метод
     override func layoutSubviews() {
         super.layoutSubviews()
-        
         //        Обрезаем изображение до границ
         myAvatarView.layer.masksToBounds = true
         //        Делаем иконку круглой

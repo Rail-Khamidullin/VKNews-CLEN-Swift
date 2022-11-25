@@ -12,7 +12,6 @@ import UIKit
 //   Класс с настройками текстового поля для навигейшн бара
 class InsetableTextField: UITextField {
     
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -25,7 +24,6 @@ class InsetableTextField: UITextField {
         borderStyle = .none
         layer.cornerRadius = 10
         layer.masksToBounds = true
-        
         //        Изображение поиска в текстовом поле
         let image = UIImage(named: "search")
         //        Расположим её слева
@@ -42,6 +40,7 @@ class InsetableTextField: UITextField {
         rect.origin.x += 12
         return rect
     }
+    
     //    Для увеличение расстояние от текста плейсхолдера до изображения в текстовом поле используется 2 метода
     override func textRect(forBounds bounds: CGRect) -> CGRect {
         return bounds.insetBy(dx: 36, dy: 0)

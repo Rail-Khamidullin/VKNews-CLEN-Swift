@@ -27,7 +27,6 @@ class GalleryCollectionView: UICollectionView, UICollectionViewDelegate, UIColle
         //        Убираем индикатор скрола для коллекции
         showsHorizontalScrollIndicator = false
         showsVerticalScrollIndicator = false
-        
         //        Регистрируем ячейку
         register(GalleryCollectionViewCell.self, forCellWithReuseIdentifier: GalleryCollectionViewCell.reuseId)
         //        Подписиываем экземпляр RowLayout под делегат
@@ -35,6 +34,7 @@ class GalleryCollectionView: UICollectionView, UICollectionViewDelegate, UIColle
             rowLayout.delegate = self
         }
     }
+    
     //    Получает массив с фото и передаёт в наш массив photos в контроллере
     func set(photos: [FeedCellPhotoAttachmentViewModel]) {
         self.photos = photos
@@ -45,23 +45,18 @@ class GalleryCollectionView: UICollectionView, UICollectionViewDelegate, UIColle
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        //        Кол-во изображений в секции
         return photos.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         //        Создаём ячейку
         let cell = dequeueReusableCell(withReuseIdentifier: GalleryCollectionViewCell.reuseId, for: indexPath) as! GalleryCollectionViewCell
-        
+        //        Передаём ячейке данные
         cell.set(imageUrl: photos[indexPath.row].photoUrlString)
-        
+        //        Возвращаем ячейку
         return cell
     }
-    
-    //    //    Добавим метод, который установит полноразмерные границы изображений из протокола UICollectionViewDelegateFlowLayout
-    //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-    //        //        Возвращаем размер изображения равной ширине и высоте рамки в которой находится ячейкак
-    //        return CGSize(width: frame.width, height: frame.height)
-    //    }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -69,7 +64,7 @@ class GalleryCollectionView: UICollectionView, UICollectionViewDelegate, UIColle
 }
 
 extension GalleryCollectionView: RowlayoutDelegate {
-    
+    //    Заполняем обязательный метод делегата
     func collectionView(_ collectionView: UICollectionView, photoAtIndexPath indexPath: IndexPath) -> CGSize {
         //        Достаём ширину и высоту изображения по IndexPath
         let width = photos[indexPath.row].width
