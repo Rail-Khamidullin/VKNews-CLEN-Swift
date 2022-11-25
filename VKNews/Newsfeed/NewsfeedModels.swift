@@ -20,7 +20,7 @@ enum Newsfeed {
                 case getUser
                 //        Кейс с получением идентификатора поста из таблицы по indexPath
                 case revealPostIds(postId: Int)
-                //                Кейс для добавления новых постов внизу таблицы после скроллинга вверх
+                //        Кейс для добавления новых постов внизу таблицы после скроллинга вверх
                 case getNextBatch
             }
         }
@@ -30,6 +30,8 @@ enum Newsfeed {
                 case presentNewsfeed(feed: FeedResponse, reveledPostIds: [Int])
                 //        Создаём новый кейс для иконки профиля в навегейшн баре
                 case presentUserInfo(user: UserResponse? )
+                //        Кейс для отображения добавления старых записей в ленту новостей снизу
+                case presentFooterLoader
             }
         }
         struct ViewModel {
@@ -38,6 +40,8 @@ enum Newsfeed {
                 case displayNewsfeed(feedViewModel: FeedViewModel)
                 //        Кейс с UserViewModel
                 case displayUser(userViewModel: UserViewModel)
+                //        Отображаем настроеный нижний колонтитул на экране
+                case displayFooterLoader
             }
         }
     }
@@ -87,4 +91,6 @@ struct FeedViewModel {
     
     //    В новостной ленте присутствует массив ячеек
     let cells: [Cell]
+    //    Текст нижнего колонтитула при загрузке новостей более 50 и т.д.
+    let footerTitle: String?
 }

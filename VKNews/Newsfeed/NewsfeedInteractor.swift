@@ -43,6 +43,8 @@ class NewsfeedInteractor: NewsfeedBusinessLogic {
                 self?.presenter?.presentData(response: Newsfeed.Model.Response.ResponseType.presentNewsfeed(feed: feed, reveledPostIds: reveledPostIds))
             })
         case .getNextBatch:
+            //            Передаём сигнал для отображения колонтитула в презентер
+            self.presenter?.presentData(response: Newsfeed.Model.Response.ResponseType.presentFooterLoader)
             service?.getNewsBatch(completion: { [weak self] (reveledPostIds, feedResponse) in
                 //                Передаём данные в презентер
                 self?.presenter?.presentData(response: Newsfeed.Model.Response.ResponseType.presentNewsfeed(feed: feedResponse, reveledPostIds: reveledPostIds))

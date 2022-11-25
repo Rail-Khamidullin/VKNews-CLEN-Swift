@@ -38,8 +38,10 @@ class NewsfeedPresenter: NewsfeedPresentationLogic {
             let cells = feed.items.map { (feedItem) in
                 cellViewModel(from: feedItem, profiles: feed.profiles, groups: feed.groups, revealedPostIds: reveledPostIds)
             }
-            //        Вставляем в структуру данных ячейки сконвертируемый формат полученных данных из сети
-            let feedViewModel = FeedViewModel.init(cells: cells)
+            //            Настраиваем отображение кол-ва записей, склоняем слово "запись" в зависимости от кол-ва через Localizable.stringsdict
+            let fotterTitle = String.localizedStringWithFormat(NSLocalizedString("newsfeed cells count", comment: ""), cells.count)
+            //        Вставляем в структуру данных ячейки (нижний колонтитутл) сконвертируемый формат полученных данных из сети
+            let feedViewModel = FeedViewModel.init(cells: cells, footerTitle: fotterTitle)
             //        Передаём в отображение нашу модель
             viewController?.displayData(viewModel: Newsfeed.Model.ViewModel.ViewModelData.displayNewsfeed(feedViewModel: feedViewModel))
         case .presentUserInfo(user: let user):
@@ -47,6 +49,9 @@ class NewsfeedPresenter: NewsfeedPresentationLogic {
             let userViewModel = UserViewModel.init(photoUrlString: user?.photo100)
             //            Передаём в отображение нашу модель
             viewController?.displayData(viewModel: Newsfeed.Model.ViewModel.ViewModelData.displayUser(userViewModel: userViewModel))
+        //            Передаём нижний колонтитул в отображение на экран
+        case .presentFooterLoader:
+            viewController?.displayData(viewModel: Newsfeed.Model.ViewModel.ViewModelData.displayFooterLoader)
         }
     }
     

@@ -18,11 +18,13 @@ class NewsfeedViewController: UIViewController, NewsfeedDisplayLogic, NewsFeedCo
     
     var router: (NSObjectProtocol & NewsfeedRoutingLogic)?
     //    Создаём модель данных новостной ленты  FeedViewModel, которая содержит посты нашего массива
-    private var feedViewModel = FeedViewModel.init(cells: [])
+    private var feedViewModel = FeedViewModel.init(cells: [], footerTitle: nil)
     //    Наша таблица
     @IBOutlet weak var tableView: UITableView!
     //    Экземпляр класса TitleView
     private let titleView = TitleView()
+    //    Экземпляр класса нижнего колонтитула, который будет инициализироваться только тогда, когда мы его вызываем
+    private lazy var footerView = FooterView()
     //    Активити индикатор для tableView
     private var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
@@ -91,6 +93,8 @@ class NewsfeedViewController: UIViewController, NewsfeedDisplayLogic, NewsFeedCo
         tableView.register(NewsfeedCodeCell.self, forCellReuseIdentifier: NewsfeedCodeCell.reuseId)
         //        Добавляем refreshControl
         tableView.addSubview(refreshControl)
+        //        Добавляем footerView
+        tableView.tableFooterView = footerView
     }
     
     //    Действие на момент запуска индикатора
@@ -109,9 +113,15 @@ class NewsfeedViewController: UIViewController, NewsfeedDisplayLogic, NewsFeedCo
             tableView.reloadData()
             //            Останавливаем работу контрола после загрузки
             refreshControl.endRefreshing()
+            //            Вызываем метод setTitle у footerView для остановки работы активити индикатора и отображения необходимой записи в колонтитуле
+            footerView.setTitle(feedViewModel.footerTitle)
             
+        //            Отображаем наш titleView в навигейшн баре
         case .displayUser(userViewModel: let userViewModel):
             titleView.set(userViewModel: userViewModel)
+        //            Отображаем наш колонтитул с работой активити индикатора
+        case .displayFooterLoader:
+            footerView.showLoader()
         }
     }
     
