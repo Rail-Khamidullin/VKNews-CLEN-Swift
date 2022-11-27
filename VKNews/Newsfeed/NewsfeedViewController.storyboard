@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Deq-PK-yp6">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Newsfeed View Controller-->
+        <scene sceneID="ui6-bW-c1S">
+            <objects>
+                <viewController id="Deq-PK-yp6" customClass="NewsfeedViewController" customModule="VKNews" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="m1t-Jw-gGf">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fgn-GW-XzT" customClass="GradientView" customModule="VKNews" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" systemColor="systemRedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="startColor">
+                                        <color key="value" red="0.96078431372549022" green="0.55294117647058827" blue="0.55294117647058827" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="endColor">
+                                        <color key="value" red="1" green="0.81568627450980391" blue="0.55294117647058827" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="0Td-dh-D0M">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="Deq-PK-yp6" id="SuE-W8-WNF"/>
+                                    <outlet property="delegate" destination="Deq-PK-yp6" id="7ZL-pw-yne"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="Wtc-GP-fsh"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="0Td-dh-D0M" firstAttribute="bottom" secondItem="Wtc-GP-fsh" secondAttribute="bottom" id="16q-gY-IKb"/>
+                            <constraint firstItem="0Td-dh-D0M" firstAttribute="leading" secondItem="Wtc-GP-fsh" secondAttribute="leading" id="24H-vc-LJO"/>
+                            <constraint firstItem="Fgn-GW-XzT" firstAttribute="bottom" secondItem="Wtc-GP-fsh" secondAttribute="bottom" id="6DX-Zf-RL4"/>
+                            <constraint firstItem="0Td-dh-D0M" firstAttribute="trailing" secondItem="Wtc-GP-fsh" secondAttribute="trailing" id="Xuh-f8-iq7"/>
+                            <constraint firstItem="Fgn-GW-XzT" firstAttribute="leading" secondItem="Wtc-GP-fsh" secondAttribute="leading" id="YQx-4x-eB6"/>
+                            <constraint firstItem="Fgn-GW-XzT" firstAttribute="top" secondItem="Wtc-GP-fsh" secondAttribute="top" id="cGa-cr-hec"/>
+                            <constraint firstItem="Fgn-GW-XzT" firstAttribute="trailing" secondItem="Wtc-GP-fsh" secondAttribute="trailing" id="szp-Rk-LI6"/>
+                            <constraint firstItem="0Td-dh-D0M" firstAttribute="top" secondItem="m1t-Jw-gGf" secondAttribute="top" id="yeE-fM-BDK"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="0Td-dh-D0M" id="r9p-EE-KtF"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vpX-Ae-Pqy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="160.80000000000001" y="144.3778110944528"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>
